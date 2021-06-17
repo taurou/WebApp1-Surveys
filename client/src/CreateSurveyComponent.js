@@ -1,17 +1,49 @@
 import {Col, Row, Container, Select, Navbar, Form, FormControl, Button, Modal } from 'react-bootstrap';
 import { useState } from 'react' ;
+import _default from 'react-bootstrap/esm/CardColumns';
 
 function CreateSurvey(props){
     
-    const [modalShow, setModalShow] = useState(true);
+    const [modalShow, setModalShow] = useState(false);
+    const [nameSurvey, setNameSurvey] = useState("");
+    const [questionArray, setQuestionArray] = useState([]);
 
+    const closeModal = () => setModalShow(false);
+    
+    function ShowQuestions(props){
+      if (questionArray.length===0)
+       return "no domande";
+       else
+          return questionArray.map((val, i) =>  <p> {val.title}</p>);
+      }
+    
     return ( 
-        <NewQuestionModal show={modalShow}  onHide={() => setModalShow(false)}   /> 
 
+      <Row className="login">
+        <Col >
+        <Form>
+        <Form.Label>Name of the survey</Form.Label>
+          <Form.Control type='text' value={nameSurvey} onChange={(event) => { setNameSurvey(event.target.value) }} /><br />
+        </Form>
+        <Button onClick={()=> { nameSurvey==="" ? setModalShow(true) : setModalShow(false) }}>Add question</Button>
+        <NewQuestionModal show={modalShow} closeModal= {closeModal} questionArray={questionArray} setQuestionArray={setQuestionArray} onHide={() => setModalShow(false)}   /> 
+        <ShowQuestions/>
+
+        </Col>
+        </Row>
+      
+        
     );
 
 
 }
+
+
+
+
+
+
+
 
 
 
@@ -30,11 +62,10 @@ function NewQuestionModal(props) {
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
               Add a new question
-             
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <QuestionForm isAdding={true} />
+        <QuestionForm closeModal={props.closeModal} questionArray={props.questionArray} setQuestionArray={props.setQuestionArray} />
         </Modal.Body>
       </Modal>
     );
@@ -44,14 +75,10 @@ function NewQuestionModal(props) {
   function QuestionForm(props) {
 
     const [questionTitle, setQuestionTitle] = useState("");
-    const [important, setImportant] = useState(false);
-    const [privatez, setPrivatez] = useState(false);
-    const [deadline, setDeadline] = useState("");
-    const [hour, setHour] = useState("");
-    const [errorMessage, setErrorMessage] = useState('');
-    const [concluded, setConcluded] = useState(false);
 
-    const [multipleAnswers, setMultipleAnswers] = useState(["prova", "1", "2", "", "", "", "", "", "", ""]); 
+    const [errorMessage, setErrorMessage] = useState('');
+
+    const [multipleAnswers, setMultipleAnswers] = useState(["", "", "", "", "", "", "", "", "", ""]); 
     
     const [isOptional, setIsOptional] = useState(false);
     const [isMultiple, setIsMultiple] = useState(false);
@@ -73,6 +100,18 @@ function handleChange(index, event) {
   
     const handleForm = (event) => {
       event.preventDefault();
+      
+      let closedOptions = multipleAnswers.filter(string => string !== '');
+      //TODO fare i check! 
+      //consideriamo la risposta multipla
+      let optional = min===0 ? true : false ; 
+
+      let answer = { title : questionTitle, isMultiple : isMultiple , isOptional : optional,  closedOptions : closedOptions , max : max, min : min };
+     
+      props.setQuestionArray([...props.questionArray, answer]);
+
+
+
       let valid = true;
 /*       if (description === '') {
         setErrorMessage('Please, write a description');
@@ -91,18 +130,10 @@ function handleChange(index, event) {
       }
   
  */      if (valid) {
-        setConcluded(true);
         setErrorMessage('');
-
         props.closeModal();
       }
     }
-
-
-
-    
-    
-
   
     return (
       <>
@@ -118,18 +149,15 @@ function handleChange(index, event) {
 
         { isMultiple ?  
 
-        multipleAnswers.map((val, i) => 
-        <p> 
-
-        <Form.Label> Option number {i+1}</Form.Label>
-        <Form.Control type='text' value={val} onChange={(event) => { handleChange(i, event) }} />
-        </p> 
+            multipleAnswers.map((val, i) => 
+            <p> 
+            <Form.Label> Option number {i+1}</Form.Label>
+            <Form.Control type='text' value={val} onChange={(event) => { handleChange(i, event) }} />
+            </p> 
         )
-
-
-        :  <div> <Form.Check type="checkbox" checked={isOptional} id="optional" custom onChange={(event) => { setIsOptional(event.target.checked) }} label="Optional" /><br /></div>
+        :  
+            <div> <Form.Check type="checkbox" checked={isOptional} id="optional" custom onChange={(event) => { setIsOptional(event.target.checked) }} label="Optional" /><br /></div>
  
-        
          }
 
           <Modal.Footer>
@@ -142,15 +170,6 @@ function handleChange(index, event) {
     );
   }
   
-
-
-
-
-
-
-
-
-export default CreateSurvey;
 
 
 function SelectElement(props){
@@ -175,4 +194,6 @@ function SelectElement(props){
     </Form.Control>
 </Form>    );
 }
+
+export default CreateSurvey;
 

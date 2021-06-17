@@ -2,7 +2,7 @@
   text-align: center;
 }
 
-.login {
+.login  {
   margin-top: 5rem;
 }
 
@@ -22,10 +22,6 @@
 
 .row_1{
     min-height: 100vh;
-}
-
-#tasks{
-  margin-top: 5rem;
 }
 
 .tit-bold{

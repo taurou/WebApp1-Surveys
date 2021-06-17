@@ -3,7 +3,7 @@ import './App.css';
 import NavigationBar from './NavbarComponents.js';
 import 'bootstrap/dist/css/bootstrap.min.css'; 
 
-import { Container } from 'react-bootstrap';
+import { Container, Button } from 'react-bootstrap';
 import CreateSurvey  from './CreateSurveyComponent.js';
 
 import MessageModal from './MessageModal.js'
@@ -11,12 +11,13 @@ import LoginForm from './LoginComponents.js';
 
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import Surveys from './SurveyManagement.js';
 import API from './API.js';
 
 
 function App() {
 
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(null);
   const [message, setMessage] = useState('');
   const [show, setShow] = useState(false);
 
@@ -56,7 +57,6 @@ function App() {
     }
   }
 
-
   return (
     <Router>
       <Container fluid>
@@ -64,22 +64,26 @@ function App() {
 
         {message && <MessageModal setMessage={setMessage} handleClose={handleClose} message={message} show={show}/> }
         <Switch>
-        <Route path="/login" render={() => 
-          <>{loggedIn ? <Redirect to="/adminpanel" /> : <LoginForm login={doLogIn} setMessage={setMessage} handleClose={handleClose} handleShow={handleShow} show={show}/>}</>
+          <Route exact path="/">
+
+          </Route>
+        <Route exact path="/login" render={() => 
+          <>{loggedIn ? ""  : <LoginForm login={doLogIn} setMessage={setMessage} handleClose={handleClose} handleShow={handleShow} show={show}/>}</>
         }/>
 
-        <Route path="/" render={() =>
-        <>
-          {loggedIn ?
-              ""
-              : <Redirect to="/login" /> }
-        </>
-        } />
-
-        <Route path="/adminpanel"
+        <Route exact path="/adminpanel"
         render={() => 
-          <MessageModal setMessage={setMessage} handleClose={handleClose} message={message} show={true}/>
-  }/>
+          <>{
+            loggedIn ? <Surveys /> : <LoginForm login={doLogIn} setMessage={setMessage} handleClose={handleClose} handleShow={handleShow} show={show}/>
+             
+            }</>  }/>
+
+      <Route exact path="/adminpanel/newsurvey" render={() =>
+      <>{ loggedIn ? <CreateSurvey  />  : "" }</>
+       
+    }
+      
+      />
 
       </Switch>
       
