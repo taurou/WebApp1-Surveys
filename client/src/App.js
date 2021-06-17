@@ -22,6 +22,7 @@ function App() {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [username, setUsername] = useState(''); 
 
   useEffect(()=> {
     const checkAuth = async() => {
@@ -45,6 +46,7 @@ function App() {
     try {
       const user = await API.logIn(credentials);
       setLoggedIn(true);
+      setUsername(user);
       setMessage({msg: `Welcome, ${user}!`, type: 'success'});
       handleShow();
     } catch(err) {
@@ -57,7 +59,7 @@ function App() {
   return (
     <Router>
       <Container fluid>
-        <NavigationBar logout={doLogOut} login={loggedIn}/>
+        <NavigationBar logout={doLogOut} login={loggedIn} username={username}/>
 
         {message && <MessageModal setMessage={setMessage} handleClose={handleClose} message={message} show={show}/> }
         <Switch>
