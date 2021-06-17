@@ -27,7 +27,8 @@ function App() {
   useEffect(()=> {
     const checkAuth = async() => {
       try {
-        await API.getUserInfo();
+       const userinfo =  await API.getUserInfo();
+       setUsername(userinfo.email);
         setLoggedIn(true);
       } catch(err) {
         console.error(err.error);
@@ -74,6 +75,12 @@ function App() {
               : <Redirect to="/login" /> }
         </>
         } />
+
+        <Route path="/adminpanel"
+        render={() => 
+          <MessageModal setMessage={setMessage} handleClose={handleClose} message={message} show={true}/>
+  }/>
+
       </Switch>
       
       </Container>

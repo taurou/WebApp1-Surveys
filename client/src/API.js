@@ -8,7 +8,7 @@ async function logIn(credentials) {
     });
     if(response.ok) {
       const user = await response.json();
-      return user.name;
+      return user.email;
     }
     else {
       try {
