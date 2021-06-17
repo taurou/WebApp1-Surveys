@@ -2,37 +2,89 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.login {
+  margin-top: 5rem;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.whitetext {
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+#asid {
+  background-color: white;
+  padding-top: 5rem;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.row_1{
+    min-height: 100vh;
+}
+
+#tasks{
+  margin-top: 5rem;
+}
+
+.tit-bold{
+  font-weight: bold;
+}
+
+.title{
+  font-size: 1.8rem ;
+}
+
+.SidebarList .row2:hover{
+  cursor: pointer;
+  background-color: #9BECAE;
+  text-decoration: none;
+}
+
+.SidebarList #active{
+  color:white;
+  background-color: #28A745;
+}
+
+.success {
+  text-align: center;
+  font-size: 1.8rem ;
+  font-weight: bold;
+  color: #28A745;
+}
+
+.danger {
+  text-align: center;
+  font-size: 1.8rem ;
+  font-weight: bold;
+  color: red;
+}
+
+.SidebarList .row2{
+  background-color: transparent;
+  color: black;
+}
+
+.fixed-right-bottom {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  z-index: 1030;
+  margin: 0 0.5rem 0.5rem 0;
+  border-radius: 50%;
+}
+
+.important {
+  color: red;
+}
+
+
+.disabled-link {
+  pointer-events: none;
+}
+
+.center {
+  margin: auto;
+  margin-top: 10%;
+  width: 100%;
+  border: 2px solid green;
+  padding: 30px;
+  border-radius: 25px;
+  align-items: center;
 }
