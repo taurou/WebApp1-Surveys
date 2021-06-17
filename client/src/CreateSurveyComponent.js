@@ -1,4 +1,4 @@
-import { DropdownButton, Dropdown, Navbar, Form, FormControl, Button, Modal } from 'react-bootstrap';
+import {Col, Row, Container, Select, Navbar, Form, FormControl, Button, Modal } from 'react-bootstrap';
 import { useState } from 'react' ;
 
 function CreateSurvey(props){
@@ -55,11 +55,11 @@ function NewQuestionModal(props) {
     
     const [isOptional, setIsOptional] = useState(false);
     const [isMultiple, setIsMultiple] = useState(false);
-    const [min, setMin] = useState('');
-    const [max, setMax] = useState('');
+    const [min, setMin] = useState(0);
+    const [max, setMax] = useState(0);
 
-    const handleSetMin = (e) => { setMin(e); };
-    const handleSetMax = (e) => { setMax(e); };
+    const handleSetMin = (e) => { setMin(e.target.value); };
+    const handleSetMax = (e) => { setMax(e.target.value); };
 
 
 
@@ -113,7 +113,8 @@ function handleChange(index, event) {
           <Form.Check type="checkbox" checked={isMultiple} id="multiple" custom onChange={(event) => { setIsMultiple(event.target.checked) }} label="Multiple Answer" /><br />
 
 
-    {isMultiple ? <span><DropdownElement title="Min" handleSelect={handleSetMin}/><DropdownElement title="Max" handleSelect={handleSetMax}/></span> : "" }
+    {isMultiple ? <p><Container><Row><Col><SelectElement title="Min" actuallySelected={min}  handleSelect={handleSetMin}/></Col>
+            <Col><SelectElement title="Max" handleSelect={handleSetMax} actuallySelected={max}/></Col></Row></Container></p> : "" }
 
         { isMultiple ?  
 
@@ -133,7 +134,7 @@ function handleChange(index, event) {
 
           <Modal.Footer>
             <Button onClick={props.closeModal} variant="secondary">Cancel</Button><br />
-            <Button onClick={handleForm}>{props.isAdding ? "Add" : "Edit"}</Button><br />
+            <Button onClick={handleForm}>Add question</Button><br />
           </Modal.Footer>
   
         </Form>
@@ -152,23 +153,26 @@ function handleChange(index, event) {
 export default CreateSurvey;
 
 
-function DropdownElement(props){
+function SelectElement(props){
+    
     return (
-        <DropdownButton alignRight title={props.title} id="dropdown-menu-align-right" onSelect={props.handleSelect}  >
+<Form>
+    <Form.Label>{props.title}</Form.Label>
+    <Form.Control as="select" custom onChange={props.handleSelect} value={props.actuallySelected}
+ >
+    <option value="0" >0</option>
 
-        <Dropdown.Item eventKey="0">0</Dropdown.Item>
-        <Dropdown.Item eventKey="1">1</Dropdown.Item>
-        <Dropdown.Item eventKey="2">2</Dropdown.Item>
-        <Dropdown.Item eventKey="3">3</Dropdown.Item>
-        <Dropdown.Item eventKey="4">4</Dropdown.Item>
-        <Dropdown.Item eventKey="5">5</Dropdown.Item>
-        <Dropdown.Item eventKey="6">6</Dropdown.Item>
-        <Dropdown.Item eventKey="7">7</Dropdown.Item>
-        <Dropdown.Item eventKey="8">8</Dropdown.Item>
-        <Dropdown.Item eventKey="9">9</Dropdown.Item>
-        <Dropdown.Item eventKey="10">10</Dropdown.Item>
-
-        </DropdownButton>
-    );
+      <option value="1" >1</option>
+      <option value="2" >2</option>
+      <option value="3" >3</option>
+      <option value="4" >4</option>
+      <option value="5" >5</option>
+      <option value="6" >6</option>
+      <option value="7" >7</option>
+      <option value="8" >8</option>
+      <option value="9" >9</option>
+      <option value="10" >10</option>
+    </Form.Control>
+</Form>    );
 }
 
