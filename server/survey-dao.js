@@ -9,10 +9,9 @@ const db = new sqlite.Database('survey.sqlite', (err) => {
 
 
 exports.createSurvey = (adminID, survey) => {
-    console.log(survey);
     return new Promise((resolve, reject) => {
       const sql = 'INSERT INTO survey(AdminId, Questions) VALUES(?, ?)';
-      db.run(sql, [adminID, survey], function (err) {
+      db.run(sql, [adminID, JSON.stringify(survey)], function (err) {
         if (err) {
           reject(err);
           return;
@@ -22,3 +21,51 @@ exports.createSurvey = (adminID, survey) => {
     });
   };
   
+
+exports.getSurveyById = (surveyID) => {
+
+    return new Promise((resolve, reject) => {
+      const sql = 'SELECT * FROM survey WHERE SurveyId=?';
+      db.get(sql, [surveyID] , (err, row) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+        if (row == undefined) {
+          reject({error: 'Id not found.'});
+        } else {
+          
+          resolve(row.Questions);
+        }
+      });
+    });
+  };
+  
+
+  exports.listSurveys = (admin) => {
+    return new Promise((resolve, reject) => {
+      const sql = 'SELECT * FROM survey WHERE AdminId = ? ';
+      db.all(sql, [admin], (err, rows) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+        resolve(rows.Questions);
+      });
+    });
+  };
+  
+  //get ALL surveys 2
+  exports.listAllSurveys = () => {
+    return new Promise((resolve, reject) => {
+      const sql = 'SELECT * FROM survey';
+      db.all(sql, [], (err, rows) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+        const surveys = rows.map((e) => ({ sid: e.SurveyId, admn: e.AdminId, questns : e.Questions }));
+        resolve(courses);
+      });
+    });
+  };

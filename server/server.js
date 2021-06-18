@@ -126,13 +126,11 @@ app.get('/api/sessions/current', (req, res) => {
     res.status(401).json({ error: 'Unauthenticated user!' });;
 });
 
+//TODO Rimettere isLoggedIn
 
 // create a new survey
-// create a new task
-app.post('/api/survey', isLoggedIn, async (req, res) => {
+app.post('/api/survey', async (req, res) => {
 
-  // let loggedUser = req.user.id;
-  console.log(req.body);
   try {
     await surveyDao.createSurvey(req.user.id, req.body);
     res.end();
@@ -140,5 +138,38 @@ app.post('/api/survey', isLoggedIn, async (req, res) => {
     res.status(500).json(error);
 
   }
+});
 
+// retrieve survey by id
+//TODO Rimettere isLoggedIn
+app.get('/api/survey/id/:id', async (req, res) => {
+
+  const id = req.params.id;
+  try {
+    let survey = await surveyDao.getSurveyById(id);
+
+    res.json(survey);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
+
+
+// retrieve all surveys
+//TODO Rimettere isLoggedIn
+app.get('/api/survey/all', async (req, res) => {
+
+  try {
+    let survey = await surveyDao.listSurveys(1);
+    res.json(survey);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
+
+//prova all surveys
+app.get('/api/allsurveys', (req, res) => {
+  surveyDao.listCourses()
+      .then(courses => res.json(courses))
+      .catch(() => res.status(500).end());
 });

@@ -15,8 +15,10 @@ function CreateSurvey(props) {
     if(nameSurvey!==""){
         let survey = { nameSurvey : nameSurvey, questionArray : questionArray }
         addSurvey(survey);
+        return <Redirect to = "/adminpanel"/>
+
     }else
-    alert("Set a survey name");
+    alert("Please, set a survey name!");
   }
 
   async function addSurvey(newSurvey) {
@@ -28,12 +30,19 @@ function CreateSurvey(props) {
     });
    // props.setTask(oldTasks => [...oldTasks, newTask]);
    //props.setUpdate(true);
-   return <Redirect to = "/adminpanel"/>
 
   }
 
 
 
+  async function getSurveyById(id) {
+    const response = await fetch('/api/survey/id/'+id, {method : 'GET', 
+    headers: {
+        'Content-Type': 'application/json',
+        }});
+   const responseJSON = await response.json();
+   console.log(JSON.parse(responseJSON));
+}
 
   function SwapQuestionTop(i) {
     if (i != 0) {
@@ -116,6 +125,7 @@ function CreateSurvey(props) {
         </Form>
         <Button style = {{margin : "0px 4px 4px"}} onClick={() => setModalShow(true)}>Add question</Button>
         <Button variant="success" style = {{margin : "0px 4px 4px"}} onClick={SubmitSurvey}>Submit survey</Button>
+        <Button onClick={() => getSurveyById(13)}> Prova </Button>
 
         <NewQuestionModal show={modalShow} closeModal={closeModal} questionArray={questionArray} setQuestionArray={setQuestionArray} onHide={() => setModalShow(false)} />
         <ShowQuestions />
@@ -154,6 +164,8 @@ function NewQuestionModal(props) {
 
 
 function QuestionForm(props) {
+
+
 
   const [questionTitle, setQuestionTitle] = useState("");
 
@@ -244,6 +256,7 @@ function QuestionForm(props) {
         <Modal.Footer>
           <Button onClick={props.closeModal} variant="secondary">Cancel</Button><br />
           <Button onClick={handleForm}>Add question</Button><br />
+
         </Modal.Footer>
 
       </Form>
