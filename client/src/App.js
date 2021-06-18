@@ -17,7 +17,7 @@ import API from './API.js';
 
 function App() {
 
-  const [loggedIn, setLoggedIn] = useState(null);
+  const [loggedIn, setLoggedIn] = useState(false);
   const [message, setMessage] = useState('');
   const [show, setShow] = useState(false);
 
@@ -68,13 +68,14 @@ function App() {
 
           </Route>
         <Route exact path="/login" render={() => 
-          <>{loggedIn ? ""  : <LoginForm login={doLogIn} setMessage={setMessage} handleClose={handleClose} handleShow={handleShow} show={show}/>}</>
+          <>{loggedIn ? <Redirect to="/adminpanel"/>  : <LoginForm login={doLogIn} setMessage={setMessage} handleClose={handleClose} handleShow={handleShow} show={show}/>
+          }</>
         }/>
 
         <Route exact path="/adminpanel"
         render={() => 
           <>{
-            loggedIn ? <Surveys /> : <LoginForm login={doLogIn} setMessage={setMessage} handleClose={handleClose} handleShow={handleShow} show={show}/>
+            loggedIn ? <Surveys /> : <Redirect to = "/login" /> 
              
             }</>  }/>
 
