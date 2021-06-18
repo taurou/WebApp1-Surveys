@@ -50,22 +50,9 @@ exports.getSurveyById = (surveyID) => {
           reject(err);
           return;
         }
-        resolve(rows.Questions);
+        const surveys = rows.map((e) => ({Questions : e.Questions}))
+        resolve(surveys);
       });
     });
   };
   
-  //get ALL surveys 2
-  exports.listAllSurveys = () => {
-    return new Promise((resolve, reject) => {
-      const sql = 'SELECT * FROM survey';
-      db.all(sql, [], (err, rows) => {
-        if (err) {
-          reject(err);
-          return;
-        }
-        const surveys = rows.map((e) => ({ sid: e.SurveyId, admn: e.AdminId, questns : e.Questions }));
-        resolve(courses);
-      });
-    });
-  };
