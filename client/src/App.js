@@ -13,6 +13,7 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 import { useState, useEffect } from 'react';
 import Surveys from './SurveyManagement.js';
 import API from './API.js';
+import UserView from './UserComponent.js';
 
 
 function App() {
@@ -65,7 +66,7 @@ function App() {
         {message && <MessageModal setMessage={setMessage} handleClose={handleClose} message={message} show={show}/> }
         <Switch>
           <Route exact path="/">
-
+            <UserView/>
           </Route>
         <Route exact path="/login" render={() => 
           <>{loggedIn ? <Redirect to="/adminpanel"/>  : <LoginForm login={doLogIn} setMessage={setMessage} handleClose={handleClose} handleShow={handleShow} show={show}/>

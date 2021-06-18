@@ -42,15 +42,15 @@ exports.getSurveyById = (surveyID) => {
   };
   
 
-  exports.listSurveys = (admin) => {
+  exports.listSurveys = () => {
     return new Promise((resolve, reject) => {
-      const sql = 'SELECT * FROM survey WHERE AdminId = ? ';
-      db.all(sql, [admin], (err, rows) => {
+      const sql = 'SELECT * FROM survey ';
+      db.all(sql, [], (err, rows) => {
         if (err) {
           reject(err);
           return;
         }
-        const surveys = rows.map((e) => ({Questions : e.Questions}))
+        const surveys = rows.map((e) => ({Questions : JSON.parse(e.Questions)}))
         resolve(surveys);
       });
     });

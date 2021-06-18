@@ -33,7 +33,7 @@ Content-Type: application/json
 DELETE http://localhost:3001/api/tasks/10
 ###
 
-GET http://localhost:3001/api/survey/id/5
+GET http://localhost:3001/api/survey/id/11
 
 ###
 GET http://localhost:3001/api/survey/all

@@ -35,6 +35,26 @@ async function logIn(credentials) {
     }
   }
   
-  const API = {logIn, logOut, getUserInfo};
+  async function getAllSurveys(){
+    const response = await fetch('/api/survey/all/' , {method : 'GET', 
+    headers: {
+        'Content-Type': 'application/json',
+        }});
+   const responseJSON = await response.json();
+   return responseJSON; 
+
+  }
+
+  async function getSurveyById(id) {
+    const response = await fetch('/api/survey/id/'+id, {method : 'GET', 
+    headers: {
+        'Content-Type': 'application/json',
+        }});
+   const responseJSON = await response.json();
+   return responseJSON;
+}
+
+
+  const API = {logIn, logOut, getUserInfo, getAllSurveys, getSurveyById};
 
   export default API;

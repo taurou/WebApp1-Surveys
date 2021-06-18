@@ -1,4 +1,3 @@
-import plus from './plus.png';
 import { Link } from "react-router-dom";
 import {Button} from "react-bootstrap";
 
@@ -20,7 +19,6 @@ function Surveys(props) {
     return (
       <>
       <Link to="/adminpanel/newsurvey"><Button className="fixed-right-bottom" >
-        <img className="fixed-right-bottom"  src={plus} width="50" height="50" alt="plus" type="button" />
        Create new survey </Button>
         </Link>
       </>

@@ -1,6 +1,8 @@
 import { Col, Card, ListGroup, Row, Container, Select, Navbar, Form, FormControl, Button, Modal } from 'react-bootstrap';
 import { useState } from 'react';
 import { Redirect } from 'react-router-dom';
+import API from './API.js';
+
 // import _default from 'react-bootstrap/esm/CardColumns';
 
 function CreateSurvey(props) {
@@ -35,14 +37,6 @@ function CreateSurvey(props) {
 
 
 
-  async function getSurveyById(id) {
-    const response = await fetch('/api/survey/id/'+id, {method : 'GET', 
-    headers: {
-        'Content-Type': 'application/json',
-        }});
-   const responseJSON = await response.json();
-   console.log(JSON.parse(responseJSON));
-}
 
   function SwapQuestionTop(i) {
     if (i != 0) {
@@ -125,7 +119,7 @@ function CreateSurvey(props) {
         </Form>
         <Button style = {{margin : "0px 4px 4px"}} onClick={() => setModalShow(true)}>Add question</Button>
         <Button variant="success" style = {{margin : "0px 4px 4px"}} onClick={SubmitSurvey}>Submit survey</Button>
-        <Button onClick={() => getSurveyById(13)}> Prova </Button>
+        <Button onClick={() => API.getSurveyById(4)}> Prova </Button>
 
         <NewQuestionModal show={modalShow} closeModal={closeModal} questionArray={questionArray} setQuestionArray={setQuestionArray} onHide={() => setModalShow(false)} />
         <ShowQuestions />

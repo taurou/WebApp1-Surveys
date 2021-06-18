@@ -148,7 +148,7 @@ app.get('/api/survey/id/:id', async (req, res) => {
   try {
     let survey = await surveyDao.getSurveyById(id);
 
-    res.json(survey);
+    res.json(JSON.parse(survey));
   } catch (error) {
     res.status(500).json(error);
   }
@@ -160,7 +160,7 @@ app.get('/api/survey/id/:id', async (req, res) => {
 app.get('/api/survey/all', async (req, res) => {
 
   try {
-    let survey = await surveyDao.listSurveys(1);
+    let survey = await surveyDao.listSurveys();
     res.json(survey);
   } catch (error) {
     res.status(500).json(error);
