@@ -14,7 +14,31 @@ function CreateSurvey(props){
       if (questionArray.length===0)
        return "no domande";
        else
-          return questionArray.map((val, i) =>  <p> {val.title}</p>);
+          return (
+          <div>
+            {
+                  questionArray.map((val, i) => {
+                  return (<div>
+                    <h3>{val.title}</h3>
+                    
+                      { val.isMultiple ? 
+                        
+                        val.multipleAnswers.map((answer) =>{ 
+                          
+                          return  (
+                            <p>{answer}</p> 
+                          )
+                        } )
+                        : "" 
+
+                      }
+                    </div>
+
+                  );
+                })
+            }         
+          </div>
+          );
       }
     
     return ( 
@@ -106,7 +130,7 @@ function handleChange(index, event) {
       //consideriamo la risposta multipla
       let optional = min===0 ? true : false ; 
 
-      let answer = { title : questionTitle, isMultiple : isMultiple , isOptional : optional,  closedOptions : closedOptions , max : max, min : min };
+      let answer = { title : questionTitle, isMultiple : isMultiple , isOptional : optional,  multipleAnswers : closedOptions , max : max, min : min };
      
       props.setQuestionArray([...props.questionArray, answer]);
 
