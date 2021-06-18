@@ -8,6 +8,8 @@ const passport = require('passport');
 const passportLocal = require('passport-local');
 
 const userDao = require('./user-dao');
+const surveyDao = require('./survey-dao');
+
 const app = express();
 
 
@@ -122,4 +124,21 @@ app.get('/api/sessions/current', (req, res) => {
   }
   else
     res.status(401).json({ error: 'Unauthenticated user!' });;
+});
+
+
+// create a new survey
+// create a new task
+app.post('/api/survey', isLoggedIn, async (req, res) => {
+
+  // let loggedUser = req.user.id;
+  console.log(req.body);
+  try {
+    await surveyDao.createSurvey(req.user.id, req.body);
+    res.end();
+  } catch (error) {
+    res.status(500).json(error);
+
+  }
+
 });
