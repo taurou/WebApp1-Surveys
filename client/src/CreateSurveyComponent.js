@@ -1,4 +1,4 @@
-import {Col, Row, Container, Select, Navbar, Form, FormControl, Button, Modal } from 'react-bootstrap';
+import {Col, Card, ListGroup,  Row, Container, Select, Navbar, Form, FormControl, Button, Modal } from 'react-bootstrap';
 import { useState } from 'react' ;
 import _default from 'react-bootstrap/esm/CardColumns';
 
@@ -15,24 +15,26 @@ function CreateSurvey(props){
        return "no domande";
        else
           return (
-          <div>
+          <div style={{ margin: '20px 0px 0px' }}>
             {
                   questionArray.map((val, i) => {
-                  return (<div>
-                    <h3>{val.title}</h3>
-                    
-                      { val.isMultiple ? 
+                  return (<Card style={{ margin: '7px' }}>
+                    <Card.Header>Domanda {i+1}: {val.title}</Card.Header>
+                    <ListGroup variant="flush">
+                      { val.isMultiple ? //se non funziona più, togliere questo!
                         
-                        val.multipleAnswers.map((answer) =>{ 
+                        val.multipleAnswers.map((answer, j) =>{ 
                           
                           return  (
-                            <p>{answer}</p> 
+                            <ListGroup.Item>{j+1}. {answer}</ListGroup.Item>
+            
                           )
                         } )
                         : "" 
 
                       }
-                    </div>
+                   </ListGroup >
+                    </Card>
 
                   );
                 })
