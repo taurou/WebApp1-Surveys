@@ -54,11 +54,18 @@ function ShowQuestions(props) {
 
                                 val.multipleAnswers.map((answer, j) => {
 
-                                    return (
-                                        <ListGroup.Item>{j + 1}. {answer}</ListGroup.Item>
+                                    return ( //TODO controllare se funziona anche senza return
+                                        <Form>
+                                            <Form.Check type="checkbox" custom label = {answer}>
+
+                                            </Form.Check>
+                                        </Form>
+                                        // <ListGroup.Item>{j + 1}. {answer}</ListGroup.Item>
                                     )
                                 })
-                                : ""
+                                : 
+                                <Form.Control custom as="textarea" /*value={pippo} onChange={(event)=>setPippo(event.target.value)}*/ />
+                                
                             }
                         </ListGroup >
                     </Card>
