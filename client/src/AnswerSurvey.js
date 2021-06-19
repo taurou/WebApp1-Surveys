@@ -1,64 +1,66 @@
 import { useParams } from 'react-router-dom'
 import { useState, useEffect } from 'react';
+import { Card, ListGroup } from 'react-bootstrap';
 import API from './API.js';
 
 //...
 
-function AnswerToSurvey(props){
+function AnswerToSurvey(props) {
     const { id } = useParams();
 
-    const [ survey , setSurvey ] = useState(null);
+    const [survey, setSurvey] = useState(null);
 
     useEffect(() => {
         const getSurveyById = async () => {
-          const survey = await API.getSurveyById(id);
-          setSurvey(survey)
-          console.log(survey);
+            const survey = await API.getSurveyById(id);
+            setSurvey(survey)
+            console.log(survey);
+            console.log(survey.questionArray);
         };
-    
+
         getSurveyById(id).catch(err => {
-          alert('error while getting survey!')
+            alert('error while getting survey!')
         });
-    
-      }, []);
-      return <ShowQuestions questions={survey.questionArray} />
-    
+        
+    }, []);
+    if(survey)
+    return  <ShowQuestions questions={survey.questionArray} />
+    else return ""; 
+
 }
 
-function ShowQuestions(props){
-    return (   <>
-        <Form>
-          <Form.Label>Title of the question</Form.Label>
-          <Form.Control type='text' value={questionTitle} onChange={(event) => { setQuestionTitle(event.target.value) }} /><br />
-  
-          <Form.Check type="checkbox" checked={isMultiple} id="multiple" custom onChange={(event) => { setIsMultiple(event.target.checked) }} label="Multiple Answer" /><br />
-  
-  
-          {isMultiple ? <p><Container><Row><Col><SelectElement title="Min" actuallySelected={min} handleSelect={handleSetMin} /></Col>
-            <Col><SelectElement title="Max" handleSelect={handleSetMax} actuallySelected={max} /></Col></Row></Container></p> : ""}
-  
-          {isMultiple ?
-  
-            multipleAnswers.map((val, i) =>
-              <p>
-                <Form.Label> Option number {i + 1}</Form.Label>
-                <Form.Control type='text' value={val} onChange={(event) => { handleChange(i, event) }} />
-              </p>
-            )
-            :
-            <div> <Form.Check type="checkbox" checked={isOptional} id="optional" custom onChange={(event) => { setIsOptional(event.target.checked) }} label="Optional" /><br /></div>
-  
-          }
-  
-          <Modal.Footer>
-            <Button onClick={props.closeModal} variant="secondary">Cancel</Button><br />
-            <Button onClick={handleForm}>Add question</Button><br />
-  
-          </Modal.Footer>
-  
-        </Form>
-      </>
-      );
+function ShowQuestions(props) {
+    return (
+
+        <div style={{ margin: '5rem 0px 0px' }}>
+
+            {props.questions.map((val, i) => {
+
+                return (
+                    <Card style={{ margin: '7px' }}>
+                        <Card.Header>
+                            Question {i + 1}: {val.title}
+                        </Card.Header>
+                        <ListGroup variant="flush">
+                            {val.isMultiple ? //se non funziona più, togliere questo!
+
+                                val.multipleAnswers.map((answer, j) => {
+
+                                    return (
+                                        <ListGroup.Item>{j + 1}. {answer}</ListGroup.Item>
+                                    )
+                                })
+                                : ""
+                            }
+                        </ListGroup >
+                    </Card>
+            )})};
+
+        </div>
+
+    );
 }
+
 
 export default AnswerToSurvey
+
