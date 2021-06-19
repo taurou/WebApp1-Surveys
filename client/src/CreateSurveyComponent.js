@@ -14,25 +14,26 @@ function CreateSurvey(props) {
   const closeModal = () => setModalShow(false);
 
   //TODO vedere perché non mi ritorna all'adminpanel
-  function SubmitSurvey(){
-    if(nameSurvey!==""){
-        let survey = { nameSurvey : nameSurvey, questionArray : questionArray }
-        addSurvey(survey);
-        return <Redirect to = "/adminpanel"/>
+  function SubmitSurvey() {
+    if (nameSurvey !== "") {
+      let survey = { nameSurvey: nameSurvey, questionArray: questionArray }
+      addSurvey(survey);
+      return <Redirect to="/adminpanel" />
 
-    }else
-    alert("Please, set a survey name!");
+    } else
+      alert("Please, set a survey name!");
   }
 
   async function addSurvey(newSurvey) {
-    await fetch('/api/survey', {method : 'POST', 
+    await fetch('/api/survey', {
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        },
+      },
       body: JSON.stringify(newSurvey)
     });
-   // props.setTask(oldTasks => [...oldTasks, newTask]);
-   //props.setUpdate(true);
+    // props.setTask(oldTasks => [...oldTasks, newTask]);
+    //props.setUpdate(true);
 
   }
 
@@ -118,8 +119,8 @@ function CreateSurvey(props) {
           <Form.Label>Name of the survey</Form.Label>
           <Form.Control type='text' value={nameSurvey} onChange={(event) => { setNameSurvey(event.target.value) }} /><br />
         </Form>
-        <Button style = {{margin : "0px 4px 4px"}} onClick={() => setModalShow(true)}>Add question</Button>
-        <Button variant="success" style = {{margin : "0px 4px 4px"}} onClick={SubmitSurvey}>Submit survey</Button>
+        <Button style={{ margin: "0px 4px 4px" }} onClick={() => setModalShow(true)}>Add question</Button>
+        <Button variant="success" style={{ margin: "0px 4px 4px" }} onClick={SubmitSurvey}>Submit survey</Button>
         <Button onClick={() => API.getSurveyById(4)}> Prova </Button>
 
         <NewQuestionModal show={modalShow} closeModal={closeModal} questionArray={questionArray} setQuestionArray={setQuestionArray} onHide={() => setModalShow(false)} />
@@ -190,11 +191,19 @@ function QuestionForm(props) {
     event.preventDefault();
 
     let closedOptions = multipleAnswers.filter(string => string !== '');
+    let answerToQuestion = [];
+    if (isMultiple)
+
+      for (let i = 0; i < closedOptions.length; i++)
+      answerToQuestion.push(false);
+    else
+    answerToQuestion = "";
+
     //TODO fare i check! 
     //consideriamo la risposta multipla
     let optional = min === 0 ? true : false;
 
-    let answer = { title: questionTitle, isMultiple: isMultiple, isOptional: optional, multipleAnswers: closedOptions, max: max, min: min };
+    let answer = { title: questionTitle, isMultiple: isMultiple, isOptional: optional, multipleAnswers: closedOptions, max: max, min: min, answerToQuestion : answerToQuestion };
 
     props.setQuestionArray([...props.questionArray, answer]);
 
