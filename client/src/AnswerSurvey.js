@@ -29,7 +29,7 @@ function AnswerToSurvey(props) {
     if(survey)
     return  (
         <>
-        <ShowQuestions questions={survey}  /> 
+        <ShowQuestions questions={survey} setQuestions={setSurvey} /> 
         <AskNameModal username={username} setUsername = {setUsername} show={modalShow} closeModal={closeModal} />
         </>
         );
@@ -38,6 +38,34 @@ function AnswerToSurvey(props) {
 }
 
 function ShowQuestions(props) {
+
+    function handleChange(i,j,val, max){
+        let obj = {...props.questions};
+        console.log("before "+max);
+        console.log(obj.questionArray[i].answerToQuestion.length);
+        if(max === 1)
+            for(let n = 0; n<obj.questionArray[i].answerToQuestion.length; n++ ){
+                console.log("before "+obj.questionArray[i].answerToQuestion[n]);
+
+                obj.questionArray[i].answerToQuestion[n]=!(val);
+                console.log("after "+obj.questionArray[i].answerToQuestion[n]);
+
+            }
+
+
+        if(j!==-1){
+        obj.questionArray[i].answerToQuestion[j]=val;
+        }
+        else
+        {
+        obj.questionArray[i].answerToQuestion=val;
+        }
+
+        props.setQuestions(obj);
+
+    }
+
+
     return (
 
         <div style={{ margin: '5rem 0px 0px' }}>
@@ -57,15 +85,16 @@ function ShowQuestions(props) {
 
                                     return ( //TODO controllare se funziona anche senza return
                                             //TODO fare attenzione a questi id... comportamenti molto strani
-                                            <Form.Check checked={props.questions.questionArray[i].answerToQuestion[j]} style={{ margin:"1rem"} }id={j} name={i} type={val.max === 0 ? "checkbox" : "radio"}  label = {answer}>
-
-                                            </Form.Check>
+                                            <Form.Check checked={props.questions.questionArray[i].answerToQuestion[j]} 
+                                            onChange={  (event) => handleChange(i, j, event.target.checked, props.questions.questionArray[i].max )     }
+                                            style={{ margin:"1rem"} }id={j} name={i} type={props.questions.questionArray[i].max === 1 ? "radio" : "checkbox" }  label = {answer}>
+                                                </Form.Check>
                                         
                                         // <ListGroup.Item>{j + 1}. {answer}</ListGroup.Item>
                                     )
                                 })
                                 : 
-                                <Form.Control value={props.questions.questionArray[i].answerToQuestion} maxLength="200" rows={3}  as="textarea" /*value={pippo} onChange={(event)=>setPippo(event.target.value)}*/ />
+                                <Form.Control value={props.questions.questionArray[i].answerToQuestion} onChange={  (event) => handleChange(i, -1, event.target.value, -1 )} maxLength="200" rows={3}  as="textarea" /*value={pippo} onChange={(event)=>setPippo(event.target.value)}*/ />
                                 
                             }
                             

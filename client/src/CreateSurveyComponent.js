@@ -174,8 +174,8 @@ function QuestionForm(props) {
   const [min, setMin] = useState(0);
   const [max, setMax] = useState(0);
 
-  const handleSetMin = (e) => { setMin(e.target.value); };
-  const handleSetMax = (e) => { setMax(e.target.value); };
+  const handleSetMin = (e) => { setMin(parseInt(e.target.value)); };
+  const handleSetMax = (e) => { setMax(parseInt(e.target.value)); };
 
 
 
