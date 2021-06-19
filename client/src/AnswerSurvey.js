@@ -56,8 +56,8 @@ function ShowQuestions(props) {
                                 val.multipleAnswers.map((answer, j) => {
 
                                     return ( //TODO controllare se funziona anche senza return
-                                            
-                                            <Form.Check style={{ margin:"1rem"} }id={j} name={i} type={val.max === 0 ? "checkbox" : "radio"}  label = {answer}>
+                                            //TODO fare attenzione a questi id... comportamenti molto strani
+                                            <Form.Check checked={props.questions.questionArray[i].answerToQuestion[j]} style={{ margin:"1rem"} }id={j} name={i} type={val.max === 0 ? "checkbox" : "radio"}  label = {answer}>
 
                                             </Form.Check>
                                         
@@ -65,7 +65,7 @@ function ShowQuestions(props) {
                                     )
                                 })
                                 : 
-                                <Form.Control maxLength="200" rows={3}  as="textarea" /*value={pippo} onChange={(event)=>setPippo(event.target.value)}*/ />
+                                <Form.Control value={props.questions.questionArray[i].answerToQuestion} maxLength="200" rows={3}  as="textarea" /*value={pippo} onChange={(event)=>setPippo(event.target.value)}*/ />
                                 
                             }
                             
