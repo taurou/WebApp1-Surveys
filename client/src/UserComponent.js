@@ -6,8 +6,6 @@ import API from './API.js';
 function UserView() {
 
   const [surveysArray, setSurveysArray] = useState([]);
-  const [modalShow, setModalShow] = useState(false);
-  const closeModal = () => setModalShow(false);
 
 
 
@@ -28,31 +26,11 @@ function UserView() {
 
   return (
 
-    <SurveyCards surveysArray={surveysArray} show={modalShow} onHide={closeModal} showModal={() => setModalShow(true)} setSurveysArray={setSurveysArray} />
+    <SurveyCards surveysArray={surveysArray}  setSurveysArray={setSurveysArray} />
     
   );
 }
 
-function AnswerQuestionModal(props) {
-''
-  return (
-    <Modal
-      show={props.show}
-      onHide={props.onHide}
-      size="lg"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-    >
-      <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          {props.question.nameSurvey}
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-      </Modal.Body>
-    </Modal>
-  );
-}
 
 
 export default UserView;
@@ -78,9 +56,7 @@ function SurveyCards(props) {
         <Card style={{ marginwidth: '18rem' }}>
 
           <Card.Body>
-            
-            <AnswerQuestionModal show={props.show} onHide={props.onHide} question={item.Questions} />
-            <Card.Title>{item.Questions.nameSurvey}</Card.Title>
+                        <Card.Title>{item.Questions.nameSurvey}</Card.Title>
             <Link to={`answersurvey/${item.SurveyId}`} >
             <Button variant="success">Answer this survey</Button></Link>
           </Card.Body>
