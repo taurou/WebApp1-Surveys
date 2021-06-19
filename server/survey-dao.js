@@ -50,7 +50,7 @@ exports.getSurveyById = (surveyID) => {
           reject(err);
           return;
         }
-        const surveys = rows.map((e) => ({Questions : JSON.parse(e.Questions)}))
+        const surveys = rows.map((e) => ({SurveyId : e.SurveyId , Questions : JSON.parse(e.Questions)}))
         resolve(surveys);
       });
     });

@@ -13,6 +13,7 @@ function CreateSurvey(props) {
 
   const closeModal = () => setModalShow(false);
 
+  //TODO vedere perché non mi ritorna all'adminpanel
   function SubmitSurvey(){
     if(nameSurvey!==""){
         let survey = { nameSurvey : nameSurvey, questionArray : questionArray }

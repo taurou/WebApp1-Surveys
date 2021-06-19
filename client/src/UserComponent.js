@@ -1,11 +1,15 @@
-import { Button, Card, CardColumns } from 'react-bootstrap';
+import { Modal, Button, Card, CardColumns } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
+import {Link} from 'react-router-dom';
 import API from './API.js';
 
 function UserView() {
 
   const [surveysArray, setSurveysArray] = useState([]);
-  let prova;
+  const [modalShow, setModalShow] = useState(false);
+  const closeModal = () => setModalShow(false);
+
+
 
   useEffect(() => {
     const getAllSurveys = async () => {
@@ -24,9 +28,32 @@ function UserView() {
 
   return (
 
-    <SurveyCards surveysArray={surveysArray} setSurveysArray={setSurveysArray} />
+    <SurveyCards surveysArray={surveysArray} show={modalShow} onHide={closeModal} showModal={() => setModalShow(true)} setSurveysArray={setSurveysArray} />
+    
   );
 }
+
+function AnswerQuestionModal(props) {
+''
+  return (
+    <Modal
+      show={props.show}
+      onHide={props.onHide}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
+      <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">
+          {props.question.nameSurvey}
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+      </Modal.Body>
+    </Modal>
+  );
+}
+
 
 export default UserView;
 
@@ -51,8 +78,11 @@ function SurveyCards(props) {
         <Card style={{ marginwidth: '18rem' }}>
 
           <Card.Body>
+            
+            <AnswerQuestionModal show={props.show} onHide={props.onHide} question={item.Questions} />
             <Card.Title>{item.Questions.nameSurvey}</Card.Title>
-            <Button variant="success">Answer this survey</Button>
+            <Link to={`answersurvey/${item.SurveyId}`} >
+            <Button variant="success">Answer this survey</Button></Link>
           </Card.Body>
 
         </Card>

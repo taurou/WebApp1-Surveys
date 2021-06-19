@@ -14,7 +14,7 @@ import { useState, useEffect } from 'react';
 import Surveys from './SurveyManagement.js';
 import API from './API.js';
 import UserView from './UserComponent.js';
-
+import AnswerToSurvey from './AnswerSurvey.js';
 
 function App() {
 
@@ -67,6 +67,9 @@ function App() {
         <Switch>
           <Route exact path="/">
             <UserView/>
+          </Route>
+          <Route exact path="/answersurvey/:id">
+            <AnswerToSurvey/> 
           </Route>
         <Route exact path="/login" render={() => 
           <>{loggedIn ? <Redirect to="/adminpanel"/>  : <LoginForm login={doLogIn} setMessage={setMessage} handleClose={handleClose} handleShow={handleShow} show={show}/>
