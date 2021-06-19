@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom'
 import { useState, useEffect } from 'react';
-import { Button, Form, Modal, Card, ListGroup } from 'react-bootstrap';
+import { Button, Form,FormGroup, Modal, Card, ListGroup } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import API from './API.js';
 
@@ -50,23 +50,26 @@ function ShowQuestions(props) {
                             Question {i + 1}: {val.title}
                         </Card.Header>
                         <ListGroup variant="flush">
+                            <Form>
                             {val.isMultiple ? //se non funziona più, togliere questo!
-
+                                
                                 val.multipleAnswers.map((answer, j) => {
 
                                     return ( //TODO controllare se funziona anche senza return
-                                        <Form>
-                                            <Form.Check type="checkbox" custom label = {answer}>
+                                            
+                                            <Form.Check style={{ margin:"1rem"} }id={j} name={i} type={val.max === 0 ? "checkbox" : "radio"}  label = {answer}>
 
                                             </Form.Check>
-                                        </Form>
+                                        
                                         // <ListGroup.Item>{j + 1}. {answer}</ListGroup.Item>
                                     )
                                 })
                                 : 
-                                <Form.Control custom as="textarea" /*value={pippo} onChange={(event)=>setPippo(event.target.value)}*/ />
+                                <Form.Control maxLength="200" rows={3}  as="textarea" /*value={pippo} onChange={(event)=>setPippo(event.target.value)}*/ />
                                 
                             }
+                            
+                            </Form>
                         </ListGroup >
                     </Card>
             )})}
