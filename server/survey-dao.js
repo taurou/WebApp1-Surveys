@@ -20,6 +20,20 @@ exports.createSurvey = (adminID, survey) => {
       });
     });
   };
+
+//creare la answer
+  exports.createAnswer = (user, id, survey) => {
+    return new Promise((resolve, reject) => {
+      const sql = 'INSERT INTO answer(Username, SurveyId, Questions) VALUES(?, ?, ?)';
+      db.run(sql, [user, id, JSON.stringify(survey)], function (err) {
+        if (err) {
+          reject(err);
+          return;
+        }
+        resolve(id);
+      });
+    });
+  };
   
 
 exports.getSurveyById = (surveyID) => {
@@ -55,4 +69,18 @@ exports.getSurveyById = (surveyID) => {
       });
     });
   };
-  
+
+
+  exports.listSurveysByAdminID = (adminID) => {
+    return new Promise((resolve, reject) => {
+      const sql = 'SELECT * FROM survey WHERE AdminId=? ';
+      db.all(sql, [adminID], (err, rows) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+        const surveys = rows.map((e) => ({SurveyId : e.SurveyId , Questions : JSON.parse(e.Questions)}))
+        resolve(surveys);
+      });
+    });
+  };

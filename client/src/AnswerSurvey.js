@@ -15,10 +15,30 @@ function AnswerToSurvey(props) {
 
     const [survey, setSurvey] = useState(null);
 
-    function submitSurvey(){
-        
+    async function addQuestion(survey) {
+        console.log(username+""+id+""+survey)
+        await fetch('/api/answer', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ username : username , id : id , survey: JSON.stringify(survey) })
+        });
+        // setSuccessModalShow(true);    
+      }
+
+    function manageSubmit(){
+        if(false){
+        }
+        else{
+            console.log("true");
+
+            addQuestion(survey)
+            alert("question submitted");
+        }
+
     }
-    
+        
 
     useEffect(() => {
         const getSurveyById = async () => {
@@ -35,7 +55,7 @@ function AnswerToSurvey(props) {
     if(survey)
     return  (
         <>
-        <ShowQuestions questions={survey} setQuestions={setSurvey} /> 
+        <ShowQuestions manageSubmit={manageSubmit} questions={survey} setQuestions={setSurvey} /> 
         <AskNameModal username={username} setUsername = {setUsername} show={modalShow} closeModal={closeModal} />
         </>
         );
@@ -107,7 +127,7 @@ function ShowQuestions(props) {
                     </Card>
             )})}
             {/* TODO fix style */}
-<Button style={{margin : "1rem 0px 0px"}} className="float-right" variant="success">Submit survey</Button>
+<Button style={{margin : "1rem 0px 0px"}} onClick={props.manageSubmit} className="float-right" variant="success">Submit survey</Button>
         </div>
 
     );

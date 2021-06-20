@@ -140,6 +140,21 @@ app.post('/api/survey', async (req, res) => {
   }
 });
 
+// save answer NO NEED TO CHECK LOGIN!
+app.post('/api/answer', async (req, res) => {
+  console.log("api called");
+  try {
+    console.log(req.body.id+" "+req.body.username+" "+req.body.survey);
+    await surveyDao.createAnswer(req.body.username, req.body.id, req.body.survey);
+    res.end();
+  } catch (error) {
+    res.status(500).json(error);
+
+  }
+});
+
+
+
 // retrieve survey by id
 //TODO Rimettere isLoggedIn
 app.get('/api/survey/id/:id', async (req, res) => {
@@ -167,9 +182,3 @@ app.get('/api/survey/all', async (req, res) => {
   }
 });
 
-//prova all surveys
-app.get('/api/allsurveys', (req, res) => {
-  surveyDao.listCourses()
-      .then(courses => res.json(courses))
-      .catch(() => res.status(500).end());
-});
