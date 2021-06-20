@@ -201,9 +201,8 @@ function QuestionForm(props) {
 
     //TODO fare i check! 
     //consideriamo la risposta multipla
-    let optional = min === 0 ? true : false;
 
-    let answer = { title: questionTitle, isMultiple: isMultiple, isOptional: optional, multipleAnswers: closedOptions, max: max, min: min, answerToQuestion : answerToQuestion };
+    let answer = { title: questionTitle, isMultiple: isMultiple, isOptional: isOptional, multipleAnswers: closedOptions, max: max, min: min, answerToQuestion : answerToQuestion };
 
     props.setQuestionArray([...props.questionArray, answer]);
 

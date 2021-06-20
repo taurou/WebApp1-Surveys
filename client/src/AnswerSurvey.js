@@ -76,6 +76,17 @@ function ShowQuestions(props) {
                     <Card style={{ margin: '7px' }}>
                         <Card.Header>
                             Question {i + 1}: {val.title}
+                            <Card.Subtitle className="text-right font-italic font-weight-light" >
+                                {   val.isMultiple ? `min:${val.min} max:${val.max}` : ""   }
+                            </Card.Subtitle>
+                            <Card.Subtitle className="text-right font-italic font-weight-light" >
+                                {  (!val.isMultiple && val.isOptional )  ? "optional answer" : ""   }
+                            </Card.Subtitle>
+                            <Card.Subtitle className="text-right font-italic font-weight-light" >
+                                {  (!val.isMultiple && !val.isOptional )  ? "mandatory answer" : ""   }
+                            </Card.Subtitle>
+
+
                         </Card.Header>
                         <ListGroup variant="flush">
                             <Form>
