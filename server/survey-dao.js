@@ -100,3 +100,24 @@ exports.getSurveyById = (surveyID) => {
       });
     });
   };
+
+  
+  exports.getAnswerIDs = (surveyID) => {
+
+    return new Promise((resolve, reject) => {
+      const sql = 'SELECT AnswerId FROM answer WHERE SurveyId=?';
+      db.all(sql, [surveyID] , (err, rows) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+        if (rows == undefined) {
+          reject({error: 'Id not found.'});
+        } else {
+          const obj = rows.map((e) => ({AnswerId : e.AnswerId }))
+
+          resolve(obj);
+        }
+      });
+    });
+  };

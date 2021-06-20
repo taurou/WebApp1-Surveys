@@ -52,3 +52,6 @@ Content-Type: application/json
 
 ###
 GET http://localhost:3001/api/survey/countanswers
+###
+
+GET http://localhost:3001/api/survey/answerids/7

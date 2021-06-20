@@ -78,7 +78,16 @@ async function getCountAnswers() {
 }
 
 
+async function getAnswerIDs(id) {
+  const response = await fetch('/api/survey/answerids/'+id, {method : 'GET', 
+  headers: {
+      'Content-Type': 'application/json',
+      }});
+ const responseJSON = await response.json();
+ return responseJSON;
+}
 
-  const API = {logIn, logOut, getUserInfo, getAllSurveys,getAllSurveysByAdmin, getSurveyById, getCountAnswers};
+
+  const API = {logIn, logOut, getUserInfo, getAllSurveys,getAllSurveysByAdmin, getSurveyById, getCountAnswers, getAnswerIDs};
 
   export default API;

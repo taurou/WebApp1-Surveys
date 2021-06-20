@@ -17,7 +17,6 @@ function AnswerToSurvey(props) {
     const [survey, setSurvey] = useState(null);
 
     async function addQuestion(survey) {
-        console.log(username+""+id+""+survey)
         await fetch('/api/answer', {
           method: 'POST',
           headers: {

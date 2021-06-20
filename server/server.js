@@ -204,3 +204,15 @@ app.get('/api/survey/countanswers',  async (req, res) => {
     res.status(500).json(error);
   }
 });
+
+//get answerID array
+app.get('/api/survey/answerids/:id',  async (req, res) => {
+  const id = req.params.id;
+
+  try {
+    let aIDs = await surveyDao.getAnswerIDs(id);
+    res.json(aIDs);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});

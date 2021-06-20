@@ -1,11 +1,10 @@
-import { useState, useEffect } from 'react';
-import { Button, Form,FormGroup, Modal, Card, ListGroup } from 'react-bootstrap';
+import {  Form, Card, ListGroup } from 'react-bootstrap';
 
 //props.isAnswering serve 
 function ShowQuestions(props) {
 
     function handleChange(i,j,val, max){
-        let obj = {...props.questions};
+        let obj = {...props.questions}; //TODO vedere shallow o hard
         if(max === 1)
             for(let n = 0; n<obj.questionArray[i].answerToQuestion.length; n++ ){
                 obj.questionArray[i].answerToQuestion[n]=!(val);

@@ -15,6 +15,7 @@ import Surveys from './SurveyManagement.js';
 import API from './API.js';
 import UserView from './UserComponent.js';
 import AnswerToSurvey from './AnswerSurvey.js';
+import ViewAnswers from './AnswerView.js';
 
 function App() {
 
@@ -68,9 +69,14 @@ function App() {
           <Route exact path="/">
             <UserView/>
           </Route>
+          
           <Route exact path="/answersurvey/:id">
             <AnswerToSurvey/> 
           </Route>
+          <Route exact path="/viewanswers/:id">
+            <ViewAnswers/> 
+          </Route>
+
         <Route exact path="/login" render={() => 
           <>{loggedIn ? <Redirect to="/adminpanel"/>  : <LoginForm login={doLogIn} setMessage={setMessage} handleClose={handleClose} handleShow={handleShow} show={show}/>
           }</>
