@@ -45,7 +45,7 @@ function Surveys(props) {
 
     return (
       <>
-       <SurveyCards countAnswers={countAnswers} surveysArray={surveysArray}  setSurveysArray={setSurveysArray} />
+       <SurveyCards isAdmin={true} countAnswers={countAnswers} surveysArray={surveysArray}  setSurveysArray={setSurveysArray} />
       <Link to="/adminpanel/newsurvey"><Button className="fixed-right-bottom" >
        Create new survey </Button>
         </Link>

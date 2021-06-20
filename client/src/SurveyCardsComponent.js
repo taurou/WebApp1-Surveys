@@ -4,17 +4,6 @@ import {Link } from 'react-router-dom';
 function SurveyCards(props) {
   return (
     <CardColumns style={{ margin: '5rem 0px 0px' }} >
-      {/* <Card>
-  <Card.Body>
-    <Card.Title>Card Title</Card.Title>
-    <Card.Text>
-      
-      Some quick example text to build on the card title and make up the bulk of
-      the card's content.
-    </Card.Text>
-    <Button variant="primary">Go somewhere</Button>
-  </Card.Body>
-  </Card> */}
 
     {props.surveysArray.map((item) => {
       return (
@@ -22,8 +11,13 @@ function SurveyCards(props) {
 
           <Card.Body>
                         <Card.Title>{item.Questions.nameSurvey}</Card.Title>
-            <Link to={`answersurvey/${item.SurveyId}`} >
-            <Button variant="success">Answer this survey</Button></Link>
+{/* TODO sistemare aspetto delnumero di risposte e vedere se si può usare filter anziché map */}
+                        { props.isAdmin ? props.countAnswers.map(obj => ( obj.SurveyId === item.SurveyId ? <p>{obj.NumRisposte} answers</p>  : "")) : "" }
+            {!props.isAdmin ? <Link to={`answersurvey/${item.SurveyId}`} >
+            <Button variant="success">Answer this survey</Button></Link> : 
+            <Link to={`tobedefinedyet/${item.SurveyId}`} >
+            <Button disabled variant="success">Check answers</Button></Link> }
+            
           </Card.Body>
 
         </Card>

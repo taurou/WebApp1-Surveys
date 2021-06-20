@@ -25,7 +25,7 @@ function UserView() {
 
   return (
 
-    <SurveyCards surveysArray={surveysArray}  setSurveysArray={setSurveysArray} />
+    <SurveyCards isAdmin={false} surveysArray={surveysArray}  setSurveysArray={setSurveysArray} />
     
   );
 }
