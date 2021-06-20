@@ -72,6 +72,7 @@ exports.getSurveyById = (surveyID) => {
 
 
   exports.listSurveysByAdminID = (adminID) => {
+    console.log(adminID);
     return new Promise((resolve, reject) => {
       const sql = 'SELECT * FROM survey WHERE AdminId=? ';
       db.all(sql, [adminID], (err, rows) => {

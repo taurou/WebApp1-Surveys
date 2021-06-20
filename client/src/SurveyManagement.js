@@ -1,23 +1,36 @@
 import { Link } from "react-router-dom";
 import {Button} from "react-bootstrap";
+import { useState, useEffect } from 'react';
+import API from './API.js';
+import SurveyCards from './SurveyCardsComponent.js';
+
 
 function Surveys(props) {
-    // const [modalShow, setModalShow] = useState(false);
-
-    // async function addTask(newTask) {
-    //   await fetch('/api/tasks', {method : 'POST', 
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //       },
-    //     body: JSON.stringify(newTask)
-    //   });
-    //  // props.setTask(oldTasks => [...oldTasks, newTask]);
-    //  props.setUpdate(true);
-
-    // }
+  
+  
+    const [surveysArray, setSurveysArray] = useState([]);
+  
+  
+  
+    useEffect(() => {
+      const getAllSurveys = async () => {
+        const surveys = await API.getAllSurveysByAdmin();
+        setSurveysArray(surveys)
+        console.log(surveys);
+      };
+  
+      getAllSurveys().catch(err => {
+        alert('error while getting all surveys!')
+      });
+  
+    }, []);
+  
+     
+  
 
     return (
       <>
+       <SurveyCards surveysArray={surveysArray}  setSurveysArray={setSurveysArray} />
       <Link to="/adminpanel/newsurvey"><Button className="fixed-right-bottom" >
        Create new survey </Button>
         </Link>

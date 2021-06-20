@@ -182,3 +182,16 @@ app.get('/api/survey/all', async (req, res) => {
   }
 });
 
+// retrieve all surveys by adminId
+//TODO Rimettere loggedIn
+//TODO verificare che id === admin.id
+app.get('/api/survey/all/byadmin', isLoggedIn,  async (req, res) => {
+  
+  try {
+    let survey = await surveyDao.listSurveysByAdminID(req.user.id);
+    res.json(survey);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
+
