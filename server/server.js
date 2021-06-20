@@ -216,3 +216,17 @@ app.get('/api/survey/answerids/:id',  async (req, res) => {
     res.status(500).json(error);
   }
 });
+
+// retrieve answer by id
+//TODO Rimettere isLoggedIn e gestire user 
+app.get('/api/answer/id/:id', async (req, res) => {
+
+  const id = req.params.id;
+  try {
+    let answer = await surveyDao.getAnswerById(id);
+
+    res.json(JSON.parse(answer));
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});

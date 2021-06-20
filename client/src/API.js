@@ -87,7 +87,17 @@ async function getAnswerIDs(id) {
  return responseJSON;
 }
 
+async function getAnswerById(id){
+  const response = await fetch('/api/answer/id/'+id, {method : 'GET', 
+  headers: {
+      'Content-Type': 'application/json',
+      }});
+ const responseJSON = await response.json();
+ return responseJSON;
 
-  const API = {logIn, logOut, getUserInfo, getAllSurveys,getAllSurveysByAdmin, getSurveyById, getCountAnswers, getAnswerIDs};
+
+}
+
+  const API = {logIn, logOut, getUserInfo, getAllSurveys,getAllSurveysByAdmin, getSurveyById, getCountAnswers, getAnswerIDs, getAnswerById};
 
   export default API;

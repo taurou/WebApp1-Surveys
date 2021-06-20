@@ -55,3 +55,8 @@ GET http://localhost:3001/api/survey/countanswers
 ###
 
 GET http://localhost:3001/api/survey/answerids/7
+
+
+###
+ 
+GET http://localhost:3001/api/answer/id/6

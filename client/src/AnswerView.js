@@ -10,22 +10,40 @@ function ViewAnswers(props){
     const [username, setUsername] = useState('');
     const [answer, setAnswer] = useState(null);
     const [answerIdArray,setAnswerIdArray] = useState([]);
-    const [selectedAnswerId, setSelectedAnswerId] = useState("");
+    const [selectedAnswerArrayIndex, setSelectedAnswerArrayIndex] = useState(null);
 
     useEffect(() => {
         const getAnswerIdArray = async () => {
             const answersId = await API.getAnswerIDs(id);
             let array = [] ;
             answersId.map((a)=> array.push(a.AnswerId));
-            console.log(array);
             setAnswerIdArray(array);
+            setSelectedAnswerArrayIndex(0);
+
         };
 
-        getAnswerIdArray(id).catch(err => {
-            alert('error while getting survey!')
+        getAnswerIdArray().catch(err => {
+            alert('error while getting answer IDs!')
         });
         
     }, []);
+
+    useEffect(() => {
+        const getAnswer = async () => {
+            const answer = await API.getAnswerById(selectedAnswerId);
+
+            console.log(answerIdArray);
+        };
+
+        getAnswer().catch(err => {
+            alert('error while getting answer IDs!')
+        });
+        
+    }, [selectedAnswerArrayIndex]);
+
+    
+
+
 
 return null;
 

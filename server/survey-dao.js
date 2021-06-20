@@ -121,3 +121,22 @@ exports.getSurveyById = (surveyID) => {
       });
     });
   };
+
+  exports.getAnswerById = (answerId) => {
+
+    return new Promise((resolve, reject) => {
+      const sql = 'SELECT * FROM answer WHERE AnswerId=?';
+      db.get(sql, [answerId] , (err, row) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+        if (row == undefined) {
+          reject({error: 'answer not found.'});
+        } else {
+          
+          resolve(row.Questions);
+        }
+      });
+    });
+  };
