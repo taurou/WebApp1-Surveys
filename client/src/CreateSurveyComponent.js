@@ -1,6 +1,6 @@
 import { Col, Card, ListGroup, Row, Container, Select, Navbar, Form, FormControl, Button, Modal } from 'react-bootstrap';
 import { useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import API from './API.js';
 
 // import _default from 'react-bootstrap/esm/CardColumns';
@@ -8,6 +8,7 @@ import API from './API.js';
 function CreateSurvey(props) {
 
   const [modalShow, setModalShow] = useState(false);
+  const [successModalShow, setSuccessModalShow] = useState(false);
   const [nameSurvey, setNameSurvey] = useState("");
   const [questionArray, setQuestionArray] = useState([]);
 
@@ -18,7 +19,6 @@ function CreateSurvey(props) {
     if (nameSurvey !== "") {
       let survey = { nameSurvey: nameSurvey, questionArray: questionArray }
       addSurvey(survey);
-      return <Redirect to="/adminpanel" />
 
     } else
       alert("Please, set a survey name!");
@@ -32,8 +32,10 @@ function CreateSurvey(props) {
       },
       body: JSON.stringify(newSurvey)
     });
+    setSuccessModalShow(true);
     // props.setTask(oldTasks => [...oldTasks, newTask]);
     //props.setUpdate(true);
+
 
   }
 
@@ -125,10 +127,12 @@ function CreateSurvey(props) {
 
         <NewQuestionModal show={modalShow} closeModal={closeModal} questionArray={questionArray} setQuestionArray={setQuestionArray} onHide={() => setModalShow(false)} />
         <ShowQuestions />
+        <RedirectModal show={successModalShow} />
+
 
       </Col>
+      
     </Row>
-
 
   );
 
@@ -291,6 +295,31 @@ function SelectElement(props) {
       </Form.Control>
     </Form>);
 }
+
+//TODO considerare i casi in cui il caricamento del db fa cilecca
+function RedirectModal(props) {
+
+  
+
+    return (
+      <Modal
+        show={props.show}
+        size="sm"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Body>
+          Survey successfully added!
+        </Modal.Body>
+        <Modal.Footer>
+        <Link to ="/adminpanel"><Button  variant="secondary">Go back to Administration Menu</Button> </Link>
+      </Modal.Footer>
+
+      </Modal>
+    );
+  }
+
+
 
 export default CreateSurvey;
 
