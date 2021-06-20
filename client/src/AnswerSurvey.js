@@ -15,6 +15,11 @@ function AnswerToSurvey(props) {
 
     const [survey, setSurvey] = useState(null);
 
+    function submitSurvey(){
+        
+    }
+    
+
     useEffect(() => {
         const getSurveyById = async () => {
             const survey = await API.getSurveyById(id);
@@ -26,6 +31,7 @@ function AnswerToSurvey(props) {
         });
         
     }, []);
+    
     if(survey)
     return  (
         <>
@@ -41,15 +47,9 @@ function ShowQuestions(props) {
 
     function handleChange(i,j,val, max){
         let obj = {...props.questions};
-        console.log("before "+max);
-        console.log(obj.questionArray[i].answerToQuestion.length);
         if(max === 1)
             for(let n = 0; n<obj.questionArray[i].answerToQuestion.length; n++ ){
-                console.log("before "+obj.questionArray[i].answerToQuestion[n]);
-
                 obj.questionArray[i].answerToQuestion[n]=!(val);
-                console.log("after "+obj.questionArray[i].answerToQuestion[n]);
-
             }
 
 
@@ -68,12 +68,12 @@ function ShowQuestions(props) {
 
     return (
 
-        <div style={{ margin: '5rem 0px 0px' }}>
-            <h2>Survey: {props.questions.nameSurvey}</h2>
+        <div style={{ margin: '4rem 0px 0px' }}>
+            <h3>Survey: {props.questions.nameSurvey}</h3>
             {props.questions.questionArray.map((val, i) => {
 
                 return (
-                    <Card style={{ margin: '7px' }}>
+                    <Card style={{ margin: '7px 0px 0px' }}>
                         <Card.Header>
                             Question {i + 1}: {val.title}
                             <Card.Subtitle className="text-right font-italic font-weight-light" >
@@ -106,7 +106,8 @@ function ShowQuestions(props) {
                         </ListGroup >
                     </Card>
             )})}
-
+            {/* TODO fix style */}
+<Button style={{margin : "1rem 0px 0px"}} className="float-right" variant="success">Submit survey</Button>
         </div>
 
     );
