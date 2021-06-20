@@ -9,9 +9,24 @@ function Surveys(props) {
   
   
     const [surveysArray, setSurveysArray] = useState([]);
+    const [countAnswers, setCountAnswers] = useState([]);
+
   
+    useEffect(() => {
+      const getCountAnswers = async () => {
+        const count = await API.getCountAnswers();
+        setCountAnswers(count);
+      };
   
+      getCountAnswers().catch(err => {
+        alert('error while counting surveys!')
+      });
   
+    }, []);
+
+
+  //TODO validate! checks! (in tutte le useEffect del programma)
+
     useEffect(() => {
       const getAllSurveys = async () => {
         const surveys = await API.getAllSurveysByAdmin();
@@ -30,7 +45,7 @@ function Surveys(props) {
 
     return (
       <>
-       <SurveyCards surveysArray={surveysArray}  setSurveysArray={setSurveysArray} />
+       <SurveyCards countAnswers={countAnswers} surveysArray={surveysArray}  setSurveysArray={setSurveysArray} />
       <Link to="/adminpanel/newsurvey"><Button className="fixed-right-bottom" >
        Create new survey </Button>
         </Link>

@@ -67,6 +67,18 @@ async function logIn(credentials) {
 }
 
 
-  const API = {logIn, logOut, getUserInfo, getAllSurveys,getAllSurveysByAdmin, getSurveyById};
+//TODO fare attenzione all'admin loggato! 
+async function getCountAnswers() {
+  const response = await fetch('/api/survey/countanswers/', {method : 'GET', 
+  headers: {
+      'Content-Type': 'application/json',
+      }});
+ const responseJSON = await response.json();
+ return responseJSON;
+}
+
+
+
+  const API = {logIn, logOut, getUserInfo, getAllSurveys,getAllSurveysByAdmin, getSurveyById, getCountAnswers};
 
   export default API;

@@ -49,3 +49,6 @@ Content-Type: application/json
 "private":0,
 "userid":1
 }
+
+###
+GET http://localhost:3001/api/survey/countanswers

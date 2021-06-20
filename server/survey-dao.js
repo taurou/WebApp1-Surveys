@@ -85,3 +85,18 @@ exports.getSurveyById = (surveyID) => {
       });
     });
   };
+
+//TODO è una prova!
+  exports.countAnswers = () => {
+    return new Promise((resolve, reject) => {
+      const sql = 'SELECT COUNT(*) AS NumRisposte, SurveyId FROM answer GROUP BY SurveyId';
+      db.all(sql, [], (err, rows) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+        const surveys = rows.map((e) => ({SurveyId : e.SurveyId , NumRisposte : e.NumRisposte }))
+        resolve(surveys);
+      });
+    });
+  };

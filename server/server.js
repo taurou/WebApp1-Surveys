@@ -195,3 +195,12 @@ app.get('/api/survey/all/byadmin', isLoggedIn,  async (req, res) => {
   }
 });
 
+app.get('/api/survey/countanswers',  async (req, res) => {
+  
+  try {
+    let survey = await surveyDao.countAnswers();
+    res.json(survey);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
