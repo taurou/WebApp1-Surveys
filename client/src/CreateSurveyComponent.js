@@ -39,9 +39,6 @@ function CreateSurvey(props) {
 
   }
 
-
-
-
   function SwapQuestionTop(i) {
     if (i != 0) {
       let copia = [...questionArray];

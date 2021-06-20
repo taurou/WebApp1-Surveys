@@ -77,15 +77,8 @@ function ShowQuestions(props) {
                         <Card.Header>
                             Question {i + 1}: {val.title}
                             <Card.Subtitle className="text-right font-italic font-weight-light" >
-                                {   val.isMultiple ? `min:${val.min} max:${val.max}` : ""   }
+                                {   val.isMultiple ? `min:${val.min} max:${val.max}` : val.isOptional ? "optional answer" : "mandatory answer"    }
                             </Card.Subtitle>
-                            <Card.Subtitle className="text-right font-italic font-weight-light" >
-                                {  (!val.isMultiple && val.isOptional )  ? "optional answer" : ""   }
-                            </Card.Subtitle>
-                            <Card.Subtitle className="text-right font-italic font-weight-light" >
-                                {  (!val.isMultiple && !val.isOptional )  ? "mandatory answer" : ""   }
-                            </Card.Subtitle>
-
 
                         </Card.Header>
                         <ListGroup variant="flush">
@@ -98,7 +91,7 @@ function ShowQuestions(props) {
                                             //TODO fare attenzione a questi id... comportamenti molto strani
                                             <Form.Check checked={props.questions.questionArray[i].answerToQuestion[j]} 
                                             onChange={  (event) => handleChange(i, j, event.target.checked, props.questions.questionArray[i].max )     }
-                                            style={{ margin:"1rem"} }id={j} name={i} type={props.questions.questionArray[i].max === 1 ? "radio" : "checkbox" }  label = {answer}>
+                                            style={{ margin:"1rem"} }id={(j+1)+(i+1)*100} name={i} type={props.questions.questionArray[i].max === 1 ? "radio" : "checkbox" }  label = {answer}>
                                                 </Form.Check>
                                         
                                         // <ListGroup.Item>{j + 1}. {answer}</ListGroup.Item>
