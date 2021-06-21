@@ -1,18 +1,16 @@
-import { useParams } from 'react-router-dom'
 import { useState, useEffect } from 'react';
 import { Button, Form,FormGroup, Modal, Card, ListGroup } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import ShowQuestions from './QuestionDisplayComponent.js';
 import API from './API.js';
-import { useHistory } from "react-router-dom";
+import { useHistory , useParams, useLocation} from "react-router-dom";
 
 function ViewAnswers(props){
-    const { id } = useParams();
-    const { ansid } = useParams()
+    let { id } = useParams();
+    let { ansid } = useParams();
     const [username, setUsername] = useState('');
     const [answer, setAnswer] = useState(null);
-    const [answerIdArray,setAnswerIdArray] = useState(null);
-    const [selectedAnswerArrayIndex, setSelectedAnswerArrayIndex] = useState(null);
+    const [answerIdArray,setAnswerIdArray] = useState([]);
 
     let history = useHistory();
 
@@ -22,7 +20,6 @@ function ViewAnswers(props){
             let array = [] ;
             answersId.map((a)=> array.push(a.AnswerId));
             setAnswerIdArray(array);
-            setSelectedAnswerArrayIndex(parseInt(ansid));
 
         };
 
@@ -33,30 +30,34 @@ function ViewAnswers(props){
     }, []);
 
     useEffect(() => {
-        if(selectedAnswerArrayIndex!==null){
         const getAnswer = async () => {
-            const answer = await API.getAnswerById(answerIdArray[selectedAnswerArrayIndex]);
+        
+            const answer = await API.getAnswerById(answerIdArray[parseInt(ansid)]);
             setUsername(answer.Username);
             setAnswer(JSON.parse(answer.Questions));
         };
 
+        if(answerIdArray.length!==0){
         getAnswer().catch(err => {
             alert('error while getting answer IDs!')
         });
-        history.push( `/viewanswers/${id}/${selectedAnswerArrayIndex} ` );
     }
-    }, [selectedAnswerArrayIndex]);
+
+    
+    }, [answerIdArray, ansid]);
 
     
     function handle(direction){
-        console.log("before "+selectedAnswerArrayIndex);
         if(direction==="right")
-            if(selectedAnswerArrayIndex < answerIdArray.length -1 )
-                setSelectedAnswerArrayIndex(oldVal => oldVal +1 );
-        if(direction==="left")
-            if(selectedAnswerArrayIndex !== 0  ){
-                setSelectedAnswerArrayIndex(oldVal => oldVal -1 );
-                console.log("after "+selectedAnswerArrayIndex);
+            if(parseInt(ansid) < answerIdArray.length -1 ){
+                let next = parseInt(ansid) + 1;
+            history.push(`/viewanswers/${id}/${next}` );
+            }
+            if(direction==="left")
+            if(parseInt(ansid) !== 0  ){
+                let prev = parseInt(ansid) - 1;
+                history.push(`/viewanswers/${id}/${prev}` );
+
             }
 
 
