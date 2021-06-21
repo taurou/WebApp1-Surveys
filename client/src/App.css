@@ -70,6 +70,22 @@
   margin: 0 0.5rem 0.5rem 0;
   border-radius: 50%;
 }
+.fixed-right-middle {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  z-index: 1;
+  margin: 0 0rem 0rem 0;
+  border-radius: 50%;
+}
+.fixed-left-middle {
+  position: fixed;
+  left: 0;
+  top: 50%;
+  z-index: 1;
+  margin: 0 0rem 0rem 0;
+  border-radius: 50%;
+}
 
 .important {
   color: red;
