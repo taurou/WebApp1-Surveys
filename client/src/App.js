@@ -1,10 +1,10 @@
 import logo from './logo.svg';
 import './App.css';
 import NavigationBar from './NavbarComponents.js';
-import 'bootstrap/dist/css/bootstrap.min.css'; 
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { Container, Button } from 'react-bootstrap';
-import CreateSurvey  from './CreateSurveyComponent.js';
+import CreateSurvey from './CreateSurveyComponent.js';
 
 import MessageModal from './MessageModal.js'
 import LoginForm from './LoginComponents.js';
@@ -25,15 +25,17 @@ function App() {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const [username, setUsername] = useState(''); 
+  const [username, setUsername] = useState('');
 
-  useEffect(()=> {
-    const checkAuth = async() => {
+  useEffect(() => {
+    console.log("auth chegk!")
+    const checkAuth = async () => {
       try {
-       const userinfo =  await API.getUserInfo();
-       setUsername(userinfo.email);
+        const userinfo = await API.getUserInfo();
+        setUsername(userinfo.email);
         setLoggedIn(true);
-      } catch(err) {
+      } catch (err) {
+        
         console.error(err.error);
       }
     };
@@ -51,10 +53,10 @@ function App() {
       const user = await API.logIn(credentials);
       setLoggedIn(true);
       setUsername(user);
-      setMessage({msg: `Welcome, ${user}!`, type: 'success'});
+      setMessage({ msg: `Welcome, ${user}!`, type: 'success' });
       handleShow();
-    } catch(err) {
-      setMessage({msg: err+"!", type: 'danger'});
+    } catch (err) {
+      setMessage({ msg: err + "!", type: 'danger' });
       handleShow();
     }
   }
@@ -62,45 +64,45 @@ function App() {
   return (
     <Router>
       <Container fluid>
-        <NavigationBar logout={doLogOut} login={loggedIn} username={username}/>
+        <NavigationBar logout={doLogOut} login={loggedIn} username={username} />
 
-        {message && <MessageModal setMessage={setMessage} handleClose={handleClose} message={message} show={show}/> }
+        {message && <MessageModal setMessage={setMessage} handleClose={handleClose} message={message} show={show} />}
         <Switch>
           <Route exact path="/">
-            <UserView/>
+            <UserView login={loggedIn}/>
           </Route>
-          
+
           <Route exact path="/answersurvey/:id">
-            <AnswerToSurvey/> 
+            <AnswerToSurvey login={loggedIn} />
           </Route>
           <Route exact path="/viewanswers/:id">
-            <ViewAnswers/> 
+            <ViewAnswers login={loggedIn} />
           </Route>
 
-        <Route exact path="/login" render={() => 
-          <>{loggedIn ? <Redirect to="/adminpanel"/>  : <LoginForm login={doLogIn} setMessage={setMessage} handleClose={handleClose} handleShow={handleShow} show={show}/>
-          }</>
-        }/>
+          <Route exact path="/login" render={() =>
+            <>{loggedIn ? <Redirect to="/adminpanel" /> : <LoginForm login={doLogIn} setMessage={setMessage} handleClose={handleClose} handleShow={handleShow} show={show} />
+            }</>
+          } />
 
-        <Route exact path="/adminpanel"
-        render={() => 
-          <>{
-            loggedIn ? <Surveys /> : <Redirect to = "/login" /> 
-             
-            }</>  }/>
+          <Route exact path="/adminpanel"
+            render={() =>
+              <>{
+                loggedIn ? <Surveys login={loggedIn} /> : <Redirect to="/login" />
 
-      <Route exact path="/adminpanel/newsurvey" render={() =>
-      <>{ loggedIn ? <CreateSurvey  />  : "" }</>
-       
-    }
-      
-      />
+              }</>} />
 
-      </Switch>
-      
+          <Route exact path="/adminpanel/newsurvey" render={() =>
+            <>{loggedIn ? <CreateSurvey login={loggedIn} /> : ""}</>
+
+          }
+
+          />
+
+        </Switch>
+
       </Container>
     </Router>
-    );
+  );
 }
 
 export default App;

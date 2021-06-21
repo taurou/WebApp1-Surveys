@@ -142,9 +142,7 @@ app.post('/api/survey', async (req, res) => {
 
 // save answer NO NEED TO CHECK LOGIN!
 app.post('/api/answer', async (req, res) => {
-  console.log("api called");
   try {
-    console.log(req.body.id+" "+req.body.username+" "+req.body.survey);
     await surveyDao.createAnswer(req.body.username, req.body.id, req.body.survey);
     res.end();
   } catch (error) {
