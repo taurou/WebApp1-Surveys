@@ -93,9 +93,12 @@ function App() {
           <Route exact path="/adminpanel/newsurvey" render={() =>
             <>{loggedIn ? <CreateSurvey login={loggedIn} /> :  <LoginForm login={doLogIn} setMessage={setMessage} handleClose={handleClose} handleShow={handleShow} show={show} /> }</>
 
-          }
+          }/>
+            <Route path="/" render={() =>
+            <Redirect to="/"/>
+            
+          }/>
 
-          />
 
         </Switch>
 

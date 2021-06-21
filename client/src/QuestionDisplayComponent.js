@@ -32,7 +32,7 @@ function ShowQuestions(props) {
             {props.questions.questionArray.map((val, i) => {
 
                 return (
-                    <Card style={{ margin: '7px 0px 0px' }}>
+                    <Card key={val.title} style={{ margin: '7px 0px 0px' }}>
                         <Card.Header>
                             Question {i + 1}: {val.title}
                             <Card.Subtitle className="text-right font-italic font-weight-light" >
@@ -48,13 +48,11 @@ function ShowQuestions(props) {
 
                                     return ( //TODO controllare se funziona anche senza return
                                             //TODO fare attenzione a questi id... comportamenti molto strani
-                                            <Form.Check checked={props.questions.questionArray[i].answerToQuestion[j]} 
+                                            <Form.Check key={val.title+"_"+j} checked={props.questions.questionArray[i].answerToQuestion[j]} 
                                             disabled={props.isAnswering ? false : true }
                                             onChange={ (event) => handleChange(i, j, event.target.checked, props.questions.questionArray[i].max )  }
                                             style={{ margin:"1rem"} }id={(j+1)+(i+1)*100} name={i} type={props.questions.questionArray[i].max === 1 ? "radio" : "checkbox" }  label = {answer}>
                                                 </Form.Check>
-                                        
-                                        // <ListGroup.Item>{j + 1}. {answer}</ListGroup.Item>
                                     )
                                 })
                                 : 

@@ -1,20 +1,20 @@
-import { Modal, Button, Card, CardColumns } from 'react-bootstrap';
+import { Button, Card, CardColumns } from 'react-bootstrap';
 import {Link } from 'react-router-dom';
 
 function SurveyCards(props) {
   return (
     <CardColumns style={{ margin: '5rem 0px 0px' }} >
 
-    {props.surveysArray.map((item) => {
+    {props.surveysArray.map((item, z) => {
       return (
-        <Card style={{ marginwidth: '18rem' }}>
+        <Card key={item.Questions.nameSurvey+"_"+z} style={{ marginwidth: '18rem' }}>
 
           <Card.Body>
                         <Card.Title>{item.Questions.nameSurvey}</Card.Title>
 {/* TODO sistemare aspetto delnumero di risposte e vedere se si può usare filter anziché map */}
-                        { props.isAdmin ? props.countAnswers.map(obj => ( obj.SurveyId === item.SurveyId ? <><Button disabled>{obj.NumRisposte} answers</Button><Link to={`viewanswers/${item.SurveyId}/0`} >
-            <Button variant="success">Check answers</Button></Link></>  : "")) : <Link to={`answersurvey/${item.SurveyId}`} >
-            <Button variant="success">Answer this survey</Button></Link> }
+                        { props.isAdmin ? props.countAnswers.map((obj,k ) => ( obj.SurveyId === item.SurveyId ? <><Button key={item.Questions.nameSurvey+"_1"+k} style={{margin: '3px'}}disabled>{obj.NumRisposte}</Button><Link key={item.Questions.nameSurvey+"_4"+k}  to={`viewanswers/${item.SurveyId}/0`} >
+            <Button key={item.Questions.nameSurvey+"_2"} variant="success">Check answers</Button></Link></>  : "")) : <Link key={item.Questions.nameSurvey+"_7"}  to={`answersurvey/${item.SurveyId}`} >
+            <Button key={item.Questions.nameSurvey+"_3"} variant="success">Answer this survey</Button></Link> }
           </Card.Body>
 
         </Card>

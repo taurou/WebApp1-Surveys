@@ -21,7 +21,13 @@ function CreateSurvey(props) {
   function SubmitSurvey() {
     if (nameSurvey.trim()) {
       let survey = { nameSurvey: nameSurvey, questionArray: questionArray }
-      addSurvey(survey);
+      if(questionArray.length !== 0 )
+          addSurvey(survey);
+          else{
+            setErrorMessage("Please, insert at least one question");
+            setMessageModal(true);
+          }
+
 
     } else{
       setErrorMessage("Please, insert a survey name");
