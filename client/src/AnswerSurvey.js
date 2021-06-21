@@ -30,14 +30,47 @@ function AnswerToSurvey(props) {
 
     function manageSubmit(){
         //TODO validation
-        if(false){
+        let obj = validateAnswers();
+        console.log(obj);
+        if(obj){
+          addQuestion(survey);
         }
-        else{
-            addQuestion(survey);
+        else{          
+          console.log("male!");
         }
 
     }
+    function validateAnswers(){
+      console.log(survey);
+
+      let count = 0 ;
+      for(let i = 0 ; i < survey.questionArray.length ; i++){
+        console.log("ciao"+survey.questionArray.length);
+        if (survey.questionArray[i].isMultiple){
+          count = 0;
+
+          for (let j = 0 ; j <  survey.questionArray[i].answerToQuestion.length; j++ ){
+          
+            if(survey.questionArray[i].answerToQuestion[j]===true){
+              console.log("true");
+              count++;
+            }
+            
+          }
+          if(count > survey.questionArray[i].max || count < survey.questionArray[i].min ){
+            return false
+          }
+
+        }
+        else{
+          if(!survey.questionArray[i].isOptional && survey.questionArray[i].answerToQuestion==="")
+          return false
         
+        }
+      }
+      return true;
+    }
+
 
     useEffect(() => {
         const getSurveyById = async () => {

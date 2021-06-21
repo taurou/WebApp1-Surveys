@@ -120,7 +120,6 @@ function CreateSurvey(props) {
         </Form>
         <Button style={{ margin: "0px 4px 4px" }} onClick={() => setModalShow(true)}>Add question</Button>
         <Button variant="success" style={{ margin: "0px 4px 4px" }} onClick={SubmitSurvey}>Submit survey</Button>
-        <Button onClick={() => API.getSurveyById(4)}> Prova </Button>
 
         <NewQuestionModal show={modalShow} closeModal={closeModal} questionArray={questionArray} setQuestionArray={setQuestionArray} onHide={() => setModalShow(false)} />
         <ShowQuestions />
