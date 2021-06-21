@@ -28,7 +28,6 @@ function App() {
   const [username, setUsername] = useState('');
 
   useEffect(() => {
-    console.log("auth chegk!")
     const checkAuth = async () => {
       try {
         const userinfo = await API.getUserInfo();

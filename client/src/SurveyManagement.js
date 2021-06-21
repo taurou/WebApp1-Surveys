@@ -31,7 +31,6 @@ function Surveys(props) {
       const getAllSurveys = async () => {
         const surveys = await API.getAllSurveysByAdmin();
         setSurveysArray(surveys)
-        console.log(surveys);
       };
   
       getAllSurveys().catch(err => {

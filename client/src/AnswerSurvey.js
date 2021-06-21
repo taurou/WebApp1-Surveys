@@ -31,7 +31,6 @@ function AnswerToSurvey(props) {
 
   function manageSubmit() {
     let obj = validateAnswers();
-    console.log(obj);
     if (obj) {
       addQuestion(survey);
     }

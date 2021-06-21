@@ -12,7 +12,6 @@ function UserView() {
     const getAllSurveys = async () => {
       const surveys = await API.getAllSurveys();
       setSurveysArray(surveys)
-      console.log(surveys);
     };
 
     getAllSurveys().catch(err => {
