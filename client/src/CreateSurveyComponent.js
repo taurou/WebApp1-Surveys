@@ -16,7 +16,7 @@ function CreateSurvey(props) {
 
   //TODO vedere perché non mi ritorna all'adminpanel
   function SubmitSurvey() {
-    if (nameSurvey !== "") {
+    if (nameSurvey.trim()) {
       let survey = { nameSurvey: nameSurvey, questionArray: questionArray }
       addSurvey(survey);
 
@@ -190,7 +190,7 @@ function QuestionForm(props) {
   const handleForm = (event) => {
     event.preventDefault();
 
-    let closedOptions = multipleAnswers.filter(string => string !== '');
+    let closedOptions = multipleAnswers.filter(string => string.trim());
     let answerToQuestion = [];
     if (isMultiple)
 

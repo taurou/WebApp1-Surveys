@@ -14,7 +14,7 @@ function LoginForm(props) {
     const credentials = { email, password };
     let valid = true;
 
-    if (email === "") {
+    if (!email.trim()) {
       valid = false
       setErrorMessage({ msg: "Please insert email address!", type: 'danger' });
     }
@@ -25,7 +25,7 @@ function LoginForm(props) {
       setErrorMessage({ msg: "Please insert a valid email address!", type: 'danger' });
     }
 
-    if (password === "" || password.length < 6) {
+    if (!password.trim() || password.length < 6) {
       valid = false
       setErrorMessage({ msg: "Please insert a password with at least 6 characters!", type: 'danger' });
     }

@@ -41,18 +41,15 @@ function AnswerToSurvey(props) {
 
     }
     function validateAnswers(){
-      console.log(survey);
 
       let count = 0 ;
       for(let i = 0 ; i < survey.questionArray.length ; i++){
-        console.log("ciao"+survey.questionArray.length);
         if (survey.questionArray[i].isMultiple){
           count = 0;
 
           for (let j = 0 ; j <  survey.questionArray[i].answerToQuestion.length; j++ ){
           
             if(survey.questionArray[i].answerToQuestion[j]===true){
-              console.log("true");
               count++;
             }
             
@@ -63,7 +60,7 @@ function AnswerToSurvey(props) {
 
         }
         else{
-          if(!survey.questionArray[i].isOptional && survey.questionArray[i].answerToQuestion==="")
+          if(!survey.questionArray[i].isOptional && !survey.questionArray[i].answerToQuestion.trim() )
           return false
         
         }
@@ -107,7 +104,7 @@ function AskNameModal(props) {
     function validateAndSubmit(){
 
 
-        if(props.username === "")
+        if(!props.username.trim())
             SetErrorMessage("Empty name, please enter a valid name"); 
         else
            props.closeModal();
