@@ -28,6 +28,7 @@ function ShowQuestions(props) {
 
         <div style={{ margin: '4rem 0px 0px' }}>
             <h3>Survey: {props.questions.nameSurvey}</h3>
+            <p className="text-right font-italic font-weight-light" >User: {props.username}</p>
             {props.questions.questionArray.map((val, i) => {
 
                 return (

@@ -12,7 +12,7 @@ function SurveyCards(props) {
           <Card.Body>
                         <Card.Title>{item.Questions.nameSurvey}</Card.Title>
 {/* TODO sistemare aspetto delnumero di risposte e vedere se si può usare filter anziché map */}
-                        { props.isAdmin ? props.countAnswers.map(obj => ( obj.SurveyId === item.SurveyId ? <><Button disabled>{obj.NumRisposte} answers</Button><Link to={`tobedefinedyet/${item.SurveyId}`} >
+                        { props.isAdmin ? props.countAnswers.map(obj => ( obj.SurveyId === item.SurveyId ? <><Button disabled>{obj.NumRisposte} answers</Button><Link to={`viewanswers/${item.SurveyId}`} >
             <Button variant="success">Check answers</Button></Link></>  : "")) : <Link to={`answersurvey/${item.SurveyId}`} >
             <Button variant="success">Answer this survey</Button></Link> }
           </Card.Body>

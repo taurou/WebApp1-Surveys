@@ -9,7 +9,7 @@ function ViewAnswers(props){
     const { id } = useParams();
     const [username, setUsername] = useState('');
     const [answer, setAnswer] = useState(null);
-    const [answerIdArray,setAnswerIdArray] = useState([]);
+    const [answerIdArray,setAnswerIdArray] = useState(null);
     const [selectedAnswerArrayIndex, setSelectedAnswerArrayIndex] = useState(null);
 
     useEffect(() => {
@@ -23,29 +23,29 @@ function ViewAnswers(props){
         };
 
         getAnswerIdArray().catch(err => {
-            alert('error while getting answer IDs!')
+            alert('no answers stored!')
         });
         
     }, []);
 
     useEffect(() => {
+        if(answerIdArray){
         const getAnswer = async () => {
-            const answer = await API.getAnswerById(selectedAnswerId);
-
-            console.log(answerIdArray);
+            const answer = await API.getAnswerById(answerIdArray[selectedAnswerArrayIndex]);
+            setAnswer(JSON.parse(answer))
         };
 
         getAnswer().catch(err => {
             alert('error while getting answer IDs!')
         });
-        
+    }
     }, [selectedAnswerArrayIndex]);
 
     
 
-
-
-return null;
+if(answer)
+    return <ShowQuestions isAnswering={false} questions={answer}  /> ;
+    else return "" ;
 
 }
 
