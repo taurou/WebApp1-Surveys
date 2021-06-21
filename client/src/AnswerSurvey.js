@@ -46,12 +46,12 @@ function AnswerToSurvey(props) {
         };
 
         getSurveyById(id).catch(err => {
-            alert('error while getting survey!')
+
+            alert('error while getting survey!');
         });
         
     }, []);
     
-    if(survey)
     return  (
         <>
         <RedirectModal show={successModalShow} ></RedirectModal>
@@ -62,7 +62,6 @@ function AnswerToSurvey(props) {
 
         </>
         );
-    else return ""; 
 
 }
 

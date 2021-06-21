@@ -72,7 +72,6 @@ exports.getSurveyById = (surveyID) => {
 
 
   exports.listSurveysByAdminID = (adminID) => {
-    console.log(adminID);
     return new Promise((resolve, reject) => {
       const sql = 'SELECT * FROM survey WHERE AdminId=? ';
       db.all(sql, [adminID], (err, rows) => {
@@ -134,7 +133,6 @@ exports.getSurveyById = (surveyID) => {
         if (row == undefined) {
           reject({error: 'answer not found.'});
         } else {
-          console.log(row);
           const obj = ({Username : row.Username, Questions : JSON.parse(row.Questions)});
           resolve(obj);
         }
