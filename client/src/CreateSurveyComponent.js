@@ -202,6 +202,10 @@ function QuestionForm(props) {
     //TODO fare i check! 
     //consideriamo la risposta multipla
 
+    if( max>closedOptions.length || min>closedOptions.length || min>max || max === 0 ){
+      //gestire il caso
+    }
+
     let answer = { title: questionTitle, isMultiple: isMultiple, isOptional: isOptional, multipleAnswers: closedOptions, max: max, min: min, answerToQuestion : answerToQuestion };
 
     props.setQuestionArray([...props.questionArray, answer]);
