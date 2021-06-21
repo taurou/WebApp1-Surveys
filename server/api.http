@@ -59,4 +59,4 @@ GET http://localhost:3001/api/survey/answerids/7
 
 ###
  
-GET http://localhost:3001/api/answer/id/6
+GET http://localhost:3001/api/answer/id/7

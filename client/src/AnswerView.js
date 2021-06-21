@@ -29,10 +29,11 @@ function ViewAnswers(props){
     }, []);
 
     useEffect(() => {
-        if(answerIdArray){
+        if(selectedAnswerArrayIndex!==null){
         const getAnswer = async () => {
             const answer = await API.getAnswerById(answerIdArray[selectedAnswerArrayIndex]);
-            setAnswer(JSON.parse(answer))
+            setUsername(answer.Username);
+            setAnswer(JSON.parse(answer.Questions));
         };
 
         getAnswer().catch(err => {
@@ -44,7 +45,7 @@ function ViewAnswers(props){
     
 
 if(answer)
-    return <ShowQuestions isAnswering={false} questions={answer}  /> ;
+    return <ShowQuestions username={username} isAnswering={false} questions={answer}  /> ;
     else return "" ;
 
 }

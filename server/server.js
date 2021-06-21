@@ -225,7 +225,7 @@ app.get('/api/answer/id/:id', async (req, res) => {
   try {
     let answer = await surveyDao.getAnswerById(id);
 
-    res.json(JSON.parse(answer));
+    res.json(answer);
   } catch (error) {
     res.status(500).json(error);
   }

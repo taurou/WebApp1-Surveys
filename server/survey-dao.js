@@ -134,8 +134,9 @@ exports.getSurveyById = (surveyID) => {
         if (row == undefined) {
           reject({error: 'answer not found.'});
         } else {
-          
-          resolve(row.Questions);
+          console.log(row);
+          const obj = ({Username : row.Username, Questions : JSON.parse(row.Questions)});
+          resolve(obj);
         }
       });
     });
