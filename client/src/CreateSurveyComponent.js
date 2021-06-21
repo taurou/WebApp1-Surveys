@@ -2,17 +2,20 @@ import { Col, Card, ListGroup, Row, Container, Select, Navbar, Form, FormControl
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import API from './API.js';
+import { MessageModalLite } from './MessageModal.js'
 
 // import _default from 'react-bootstrap/esm/CardColumns';
 
 function CreateSurvey(props) {
 
+  const [messageModal, setMessageModal] = useState(false);
   const [modalShow, setModalShow] = useState(false);
   const [successModalShow, setSuccessModalShow] = useState(false);
   const [nameSurvey, setNameSurvey] = useState("");
   const [questionArray, setQuestionArray] = useState([]);
+  const [errorMessage, setErrorMessage] = useState('');
+  
 
-  const closeModal = () => setModalShow(false);
 
   //TODO vedere perché non mi ritorna all'adminpanel
   function SubmitSurvey() {
@@ -20,8 +23,10 @@ function CreateSurvey(props) {
       let survey = { nameSurvey: nameSurvey, questionArray: questionArray }
       addSurvey(survey);
 
-    } else
-      alert("Please, set a survey name!");
+    } else{
+      setErrorMessage("Please, insert a survey name");
+      setMessageModal(true);
+    }
   }
 
   async function addSurvey(newSurvey) {
@@ -120,8 +125,8 @@ function CreateSurvey(props) {
         </Form>
         <Button style={{ margin: "0px 4px 4px" }} onClick={() => setModalShow(true)}>Add question</Button>
         <Button variant="success" style={{ margin: "0px 4px 4px" }} onClick={SubmitSurvey}>Submit survey</Button>
-
-        <NewQuestionModal show={modalShow} closeModal={closeModal} questionArray={questionArray} setQuestionArray={setQuestionArray} onHide={() => setModalShow(false)} />
+        <MessageModalLite show={messageModal} handleClose={()=>setMessageModal(false)} message={errorMessage} />
+        <NewQuestionModal setErrorMessage={setErrorMessage} showMessageModal={()=> setMessageModal(true)} show={modalShow} closeModal={() => setModalShow(false)} questionArray={questionArray} setQuestionArray={setQuestionArray} onHide={() => setModalShow(false)} />
         <ShowQuestions />
         <RedirectModal show={successModalShow} />
 
@@ -152,7 +157,7 @@ function NewQuestionModal(props) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <QuestionForm closeModal={props.closeModal} questionArray={props.questionArray} setQuestionArray={props.setQuestionArray} />
+        <QuestionForm setErrorMessage={props.setErrorMessage} showMessageModal={props.showMessageModal} closeModal={props.closeModal} questionArray={props.questionArray} setQuestionArray={props.setQuestionArray} />
       </Modal.Body>
     </Modal>
   );
@@ -165,7 +170,6 @@ function QuestionForm(props) {
 
   const [questionTitle, setQuestionTitle] = useState("");
 
-  const [errorMessage, setErrorMessage] = useState('');
 
   const [multipleAnswers, setMultipleAnswers] = useState(["", "", "", "", "", "", "", "", "", ""]);
 
@@ -201,38 +205,27 @@ function QuestionForm(props) {
 
     //TODO fare i check! 
     //consideriamo la risposta multipla
-
-    if( max>closedOptions.length || min>closedOptions.length || min>max || max === 0 ){
-      //gestire il caso
+    if(!questionTitle.trim()){
+      props.setErrorMessage("Insert the question title");
+      props.showMessageModal();
+      return;
     }
+
+    if(isMultiple && ( max>closedOptions.length || min>closedOptions.length || min>max || max === 0 )  ){
+      props.setErrorMessage("Insert valid values in closed-answer question");
+      props.showMessageModal();
+      return; 
+    }
+  
 
     let answer = { title: questionTitle, isMultiple: isMultiple, isOptional: isOptional, multipleAnswers: closedOptions, max: max, min: min, answerToQuestion : answerToQuestion };
 
     props.setQuestionArray([...props.questionArray, answer]);
 
+    props.closeModal();
 
-
-    let valid = true;
-/*       if (description === '') {
-        setErrorMessage('Please, write a description');
-        valid = false;
-      }
-      else if (deadline === '' && hour === '') {
-        valid = true;
-      }
-      else if (hour === '' && deadline !== '') {
-        setErrorMessage('If you insert a deadline, please, set also an hour.');
-        valid = false;
-      }
-      else if (hour !== '' && deadline === '') {
-        setErrorMessage('If you insert an hour, please, set also a deadline.');
-        valid = false;
-      }
-  
- */      if (valid) {
-      setErrorMessage('');
-      props.closeModal();
-    }
+    
+    
   }
 
   return (
