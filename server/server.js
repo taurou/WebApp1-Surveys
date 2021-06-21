@@ -129,7 +129,7 @@ app.get('/api/sessions/current', (req, res) => {
 //TODO Rimettere isLoggedIn
 
 // create a new survey
-app.post('/api/survey', async (req, res) => {
+app.post('/api/survey', isLoggedIn, async (req, res) => {
 
   try {
     await surveyDao.createSurvey(req.user.id, req.body);
@@ -193,10 +193,10 @@ app.get('/api/survey/all/byadmin', isLoggedIn,  async (req, res) => {
   }
 });
 
-app.get('/api/survey/countanswers',  async (req, res) => {
+app.get('/api/survey/countanswers', isLoggedIn,  async (req, res) => {
   
   try {
-    let survey = await surveyDao.countAnswers();
+    let survey = await surveyDao.countAnswers(req.user.id);
     res.json(survey);
   } catch (error) {
     res.status(500).json(error);
@@ -204,11 +204,11 @@ app.get('/api/survey/countanswers',  async (req, res) => {
 });
 
 //get answerID array
-app.get('/api/survey/answerids/:id',  async (req, res) => {
+app.get('/api/survey/answerids/:id', isLoggedIn, async (req, res) => {
   const id = req.params.id;
 
   try {
-    let aIDs = await surveyDao.getAnswerIDs(id);
+    let aIDs = await surveyDao.getAnswerIDs(id, req.user.id);
     res.json(aIDs);
   } catch (error) {
     res.status(500).json(error);
@@ -217,11 +217,11 @@ app.get('/api/survey/answerids/:id',  async (req, res) => {
 
 // retrieve answer by id
 //TODO Rimettere isLoggedIn e gestire user 
-app.get('/api/answer/id/:id', async (req, res) => {
+app.get('/api/answer/id/:id', isLoggedIn, async (req, res) => {
 
   const id = req.params.id;
   try {
-    let answer = await surveyDao.getAnswerById(id);
+    let answer = await surveyDao.getAnswerById(id, req.user.id);
 
     res.json(answer);
   } catch (error) {

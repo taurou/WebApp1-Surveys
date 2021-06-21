@@ -86,10 +86,11 @@ exports.getSurveyById = (surveyID) => {
   };
 
 //TODO è una prova!
-  exports.countAnswers = () => {
+  exports.countAnswers = (admin) => {
     return new Promise((resolve, reject) => {
-      const sql = 'SELECT COUNT(*) AS NumRisposte, SurveyId FROM answer GROUP BY SurveyId';
-      db.all(sql, [], (err, rows) => {
+  
+      const sql = 'SELECT COUNT(*) AS NumRisposte, answer.SurveyId FROM answer, survey WHERE survey.SurveyId=answer.SurveyId AND AdminId=? GROUP BY answer.SurveyId';
+      db.all(sql, [admin], (err, rows) => {
         if (err) {
           reject(err);
           return;
@@ -101,11 +102,12 @@ exports.getSurveyById = (surveyID) => {
   };
 
   
-  exports.getAnswerIDs = (surveyID) => {
+  exports.getAnswerIDs = (surveyID, admin) => {
 
     return new Promise((resolve, reject) => {
-      const sql = 'SELECT AnswerId FROM answer WHERE SurveyId=?';
-      db.all(sql, [surveyID] , (err, rows) => {
+
+      const sql = 'SELECT answer.AnswerId FROM answer, survey WHERE answer.SurveyId=? AND survey.AdminId=? AND answer.SurveyId=survey.SurveyId';
+      db.all(sql, [surveyID, admin] , (err, rows) => {
         if (err) {
           reject(err);
           return;
@@ -121,11 +123,11 @@ exports.getSurveyById = (surveyID) => {
     });
   };
 
-  exports.getAnswerById = (answerId) => {
+  exports.getAnswerById = (answerId, admin) => {
 
     return new Promise((resolve, reject) => {
-      const sql = 'SELECT * FROM answer WHERE AnswerId=?';
-      db.get(sql, [answerId] , (err, row) => {
+      const sql = 'SELECT Username, answer.Questions FROM answer, survey WHERE AnswerId=? AND survey.AdminId=? AND answer.SurveyId=survey.SurveyId';
+      db.get(sql, [answerId, admin] , (err, row) => {
         if (err) {
           reject(err);
           return;
