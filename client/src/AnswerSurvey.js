@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom'
 import { useState, useEffect } from 'react';
-import { Button, Form,FormGroup, Modal, Card, ListGroup } from 'react-bootstrap';
+import {Container, Button, Form,FormGroup, Modal, Card, ListGroup } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import ShowQuestions from './QuestionDisplayComponent.js';
 import API from './API.js';
@@ -13,6 +13,7 @@ function AnswerToSurvey(props) {
     const [modalShow, setModalShow] = useState(true);
     const closeModal = () => setModalShow(false);
     const [username, setUsername] = useState('');
+    const [successModalShow, setSuccessModalShow] = useState(false);
 
     const [survey, setSurvey] = useState(null);
 
@@ -24,7 +25,7 @@ function AnswerToSurvey(props) {
           },
           body: JSON.stringify({ username : username , id : id , survey: JSON.stringify(survey) })
         });
-        // setSuccessModalShow(true);    
+        setSuccessModalShow(true);    
       }
 
     function manageSubmit(){
@@ -32,10 +33,7 @@ function AnswerToSurvey(props) {
         if(false){
         }
         else{
-            console.log("true");
-
-            addQuestion(survey)
-            alert("question submitted");
+            addQuestion(survey);
         }
 
     }
@@ -56,10 +54,11 @@ function AnswerToSurvey(props) {
     if(survey)
     return  (
         <>
+        <RedirectModal show={successModalShow} ></RedirectModal>
         <ShowQuestions isAnswering={true} manageSubmit={manageSubmit} questions={survey} setQuestions={setSurvey} /> 
         <AskNameModal username={username} setUsername = {setUsername} show={modalShow} closeModal={closeModal} />
          {/* TODO fix style */}
-        <Button style={{margin : "1rem 0px 0px"}} onClick={manageSubmit} className="float-right" variant="success">Submit survey</Button>
+        <Container><Button style={{margin : "1rem 0px 0px"}} onClick={manageSubmit} className="float-right" variant="success">Submit survey</Button></Container>
 
         </>
         );
@@ -106,6 +105,26 @@ function AskNameModal(props) {
       );
     }
     
+ function RedirectModal(props) {
+
+      return (
+        <Modal
+          show={props.show}
+          size="sm"
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+        >
+          <Modal.Body>
+            Answer successfully submitted!
+          </Modal.Body>
+          <Modal.Footer>
+          <Link to ="/"><Button  variant="secondary">Go back to Home Page</Button> </Link>
+        </Modal.Footer>
+  
+        </Modal>
+      );
+    }
+
 
 export default AnswerToSurvey
 

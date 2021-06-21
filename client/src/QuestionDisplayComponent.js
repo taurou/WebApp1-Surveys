@@ -1,4 +1,4 @@
-import {  Form, Card, ListGroup } from 'react-bootstrap';
+import {  Container, Form, Card, ListGroup } from 'react-bootstrap';
 
 //props.isAnswering serve 
 function ShowQuestions(props) {
@@ -25,7 +25,7 @@ function ShowQuestions(props) {
 
 
     return (
-
+<Container>
         <div style={{ margin: '4rem 0px 0px' }}>
             <h3>Survey: {props.questions.nameSurvey}</h3>
             {props.isAnswering ? "" : <p className=" font-italic font-weight-light" >User: {props.username}</p> }
@@ -67,7 +67,7 @@ function ShowQuestions(props) {
                     </Card>
             )})}
         </div>
-
+        </Container>
     );
 }
 
