@@ -22,8 +22,9 @@ function ShowQuestions(props) {
         props.setQuestions(obj);
 
     }
-    
-        return (
+
+
+    return (
 <Container>
         <div style={{ margin: '4rem 0px 0px' }}>
             <h3>Survey: {props.questions.nameSurvey}</h3>

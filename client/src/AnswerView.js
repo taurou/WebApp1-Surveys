@@ -4,13 +4,17 @@ import { Button, Form,FormGroup, Modal, Card, ListGroup } from 'react-bootstrap'
 import { Link } from 'react-router-dom';
 import ShowQuestions from './QuestionDisplayComponent.js';
 import API from './API.js';
+import { useHistory } from "react-router-dom";
 
 function ViewAnswers(props){
     const { id } = useParams();
+    const { ansid } = useParams()
     const [username, setUsername] = useState('');
     const [answer, setAnswer] = useState(null);
     const [answerIdArray,setAnswerIdArray] = useState(null);
     const [selectedAnswerArrayIndex, setSelectedAnswerArrayIndex] = useState(null);
+
+    let history = useHistory();
 
     useEffect(() => {
         const getAnswerIdArray = async () => {
@@ -18,7 +22,7 @@ function ViewAnswers(props){
             let array = [] ;
             answersId.map((a)=> array.push(a.AnswerId));
             setAnswerIdArray(array);
-            setSelectedAnswerArrayIndex(0);
+            setSelectedAnswerArrayIndex(parseInt(ansid));
 
         };
 
@@ -39,17 +43,21 @@ function ViewAnswers(props){
         getAnswer().catch(err => {
             alert('error while getting answer IDs!')
         });
+        history.push( `/viewanswers/${id}/${selectedAnswerArrayIndex} ` );
     }
     }, [selectedAnswerArrayIndex]);
 
     
     function handle(direction){
+        console.log("before "+selectedAnswerArrayIndex);
         if(direction==="right")
             if(selectedAnswerArrayIndex < answerIdArray.length -1 )
                 setSelectedAnswerArrayIndex(oldVal => oldVal +1 );
         if(direction==="left")
-            if(selectedAnswerArrayIndex !== 0  )
+            if(selectedAnswerArrayIndex !== 0  ){
                 setSelectedAnswerArrayIndex(oldVal => oldVal -1 );
+                console.log("after "+selectedAnswerArrayIndex);
+            }
 
 
     }

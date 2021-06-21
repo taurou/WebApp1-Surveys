@@ -75,7 +75,7 @@ function App() {
           <Route exact path="/answersurvey/:id">
             <AnswerToSurvey login={loggedIn} />
           </Route>
-          <Route exact path="/viewanswers/:id">
+          <Route exact path="/viewanswers/:id/:ansid">
             { loggedIn ? <ViewAnswers login={loggedIn}  /> :  <LoginForm login={doLogIn} setMessage={setMessage} handleClose={handleClose} handleShow={handleShow} show={show} /> }
           </Route>
 
