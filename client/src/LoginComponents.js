@@ -1,6 +1,6 @@
 import { Form, Button, Container, Row, Col, ButtonGroup } from 'react-bootstrap';
 import { useState } from 'react';
-import MessageModal from './MessageModal.js'
+import { MessageModal } from './MessageModal.js'
 
 function LoginForm(props) {
 

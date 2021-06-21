@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Button } from 'react-bootstrap';
 import CreateSurvey from './CreateSurveyComponent.js';
 
-import MessageModal from './MessageModal.js'
+import { MessageModal } from './MessageModal.js'
 import LoginForm from './LoginComponents.js';
 
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
