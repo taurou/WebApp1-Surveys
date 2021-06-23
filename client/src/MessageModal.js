@@ -1,5 +1,5 @@
-import { Modal } from 'react-bootstrap';
-
+import { Modal, Button } from 'react-bootstrap';
+import {Link} from 'react-router-dom';
 function MessageModal(props) {
 
     return (
@@ -31,5 +31,26 @@ function MessageModalLite(props) {
     );
   }
     
+  function RedirectModal(props) {
 
-export  { MessageModal , MessageModalLite }   ;
+    return (
+      <Modal
+        show={props.show}
+        size="sm"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Body>
+          {props.isAnswering ? "Answer successfully submitted!" : "Survey successfully added!" }
+        </Modal.Body>
+        <Modal.Footer>
+          <Link to={props.isAnswering ? "/" : "/adminpanel" }><Button variant="secondary">{props.isAnswering ? "Go back to Home Page" : "Go back to Administration Menu" }</Button> </Link>
+        </Modal.Footer>
+  
+      </Modal>
+    );
+  }
+  
+  
+
+export  { MessageModal , MessageModalLite, RedirectModal }   ;

@@ -2,7 +2,7 @@ import { Col, Card, ListGroup, Row, Container, Select, Navbar, Form, FormControl
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import API from './API.js';
-import { MessageModalLite } from './MessageModal.js'
+import { MessageModalLite, RedirectModal } from './MessageModal.js'
 
 // import _default from 'react-bootstrap/esm/CardColumns';
 
@@ -134,7 +134,7 @@ function CreateSurvey(props) {
         <MessageModalLite show={messageModal} handleClose={()=>setMessageModal(false)} message={errorMessage} />
         <NewQuestionModal setErrorMessage={setErrorMessage} showMessageModal={()=> setMessageModal(true)} show={modalShow} closeModal={() => setModalShow(false)} questionArray={questionArray} setQuestionArray={setQuestionArray} onHide={() => setModalShow(false)} />
         <ShowQuestions />
-        <RedirectModal show={successModalShow} />
+        <RedirectModal isAnswering={false} show={successModalShow} />
 
 
       </Col>
@@ -296,27 +296,6 @@ function SelectElement(props) {
 }
 
 //TODO considerare i casi in cui il caricamento del db fa cilecca
-function RedirectModal(props) {
-
-  
-
-    return (
-      <Modal
-        show={props.show}
-        size="sm"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-      >
-        <Modal.Body>
-          Survey successfully added!
-        </Modal.Body>
-        <Modal.Footer>
-        <Link to ="/adminpanel"><Button  variant="secondary">Go back to Administration Menu</Button> </Link>
-      </Modal.Footer>
-
-      </Modal>
-    );
-  }
 
 
 

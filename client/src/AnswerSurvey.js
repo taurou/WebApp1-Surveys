@@ -4,7 +4,7 @@ import { Container, Button, Form, FormGroup, Modal, Card, ListGroup } from 'reac
 import { Link } from 'react-router-dom';
 import ShowQuestions from './QuestionDisplayComponent.js';
 import API from './API.js';
-import { MessageModalLite } from './MessageModal.js'
+import { MessageModalLite, RedirectModal } from './MessageModal.js'
 //...
 
 function AnswerToSurvey(props) {
@@ -84,7 +84,7 @@ function AnswerToSurvey(props) {
     return (
       <>
         <MessageModalLite handleClose={() => setMessageModal(false)} message="Please, fill the form correctly" show={messageModal} />
-        <RedirectModal show={successModalShow} ></RedirectModal>
+        <RedirectModal isAnswering={true} show={successModalShow} ></RedirectModal>
         <ShowQuestions isAnswering={true} manageSubmit={manageSubmit} questions={survey} setQuestions={setSurvey} />
         <AskNameModal username={username} setUsername={setUsername} show={modalShow} closeModal={closeModal} />
         {/* TODO fix style */}
@@ -136,25 +136,6 @@ function AskNameModal(props) {
   );
 }
 
-function RedirectModal(props) {
-
-  return (
-    <Modal
-      show={props.show}
-      size="sm"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-    >
-      <Modal.Body>
-        Answer successfully submitted!
-      </Modal.Body>
-      <Modal.Footer>
-        <Link to="/"><Button variant="secondary">Go back to Home Page</Button> </Link>
-      </Modal.Footer>
-
-    </Modal>
-  );
-}
 
 
 export default AnswerToSurvey
