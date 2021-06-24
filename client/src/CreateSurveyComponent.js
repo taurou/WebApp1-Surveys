@@ -2,8 +2,6 @@ import { Col, Card, ListGroup, Row, Container, Form, Button, Modal } from 'react
 import { useState } from 'react';
 import { MessageModalLite, RedirectModal } from './MessageModal.js'
 
-// import _default from 'react-bootstrap/esm/CardColumns';
-
 function CreateSurvey(props) {
 
   const [messageModal, setMessageModal] = useState(false);
@@ -13,7 +11,7 @@ function CreateSurvey(props) {
   const [questionArray, setQuestionArray] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
   
-
+//TODO anche qui c'è un problema con le key! 
 
   function SubmitSurvey() {
     if (nameSurvey.trim()) {
@@ -41,9 +39,6 @@ function CreateSurvey(props) {
       body: JSON.stringify(newSurvey)
     });
     setSuccessModalShow(true);
-    // props.setTask(oldTasks => [...oldTasks, newTask]);
-    //props.setUpdate(true);
-
 
   }
 
@@ -97,7 +92,7 @@ function CreateSurvey(props) {
                   </svg> Question {i + 1}: {val.title}</Card.Header>
 
                 <ListGroup variant="flush">
-                  {val.isMultiple ? //se non funziona più, togliere questo!
+                  {val.isMultiple ? 
 
                     val.multipleAnswers.map((answer, j) => {
 
@@ -145,7 +140,6 @@ function CreateSurvey(props) {
 
 
 function NewQuestionModal(props) {
-
   return (
     <Modal
       show={props.show}
@@ -168,8 +162,6 @@ function NewQuestionModal(props) {
 
 
 function QuestionForm(props) {
-
-
 
   const [questionTitle, setQuestionTitle] = useState("");
 
@@ -276,7 +268,6 @@ function SelectElement(props) {
       <Form.Control as="select" custom onChange={props.handleSelect} value={props.actuallySelected}
       >
         <option value="0" >0</option>
-
         <option value="1" >1</option>
         <option value="2" >2</option>
         <option value="3" >3</option>

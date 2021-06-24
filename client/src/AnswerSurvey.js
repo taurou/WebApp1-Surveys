@@ -23,7 +23,7 @@ function AnswerToSurvey(props) {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ username: username, id: id, survey: JSON.stringify(survey) })
+      body: JSON.stringify({ username: username, id: id, survey: survey })
     });
     setSuccessModalShow(true);
   }

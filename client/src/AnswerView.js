@@ -33,7 +33,7 @@ function ViewAnswers(props){
         
             const answer = await API.getAnswerById(answerIdArray[parseInt(ansid)]);
             setUsername(answer.Username);
-            setAnswer(JSON.parse(answer.Questions));
+            setAnswer(answer.Questions);
         };
 
         if(answerIdArray.length!==0){
