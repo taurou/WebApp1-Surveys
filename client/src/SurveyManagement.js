@@ -15,6 +15,9 @@ function Surveys(props) {
     useEffect(() => {
       const getCountAnswers = async () => {
         const count = await API.getCountAnswers();
+        if (count.length===0)
+        setCountAnswers([{ SurveyId : -1 , NumRisposte : -1 }]); //perché altrimenti non visualizza 0 quando non ho risposte nel DB
+          else
         setCountAnswers(count);
       };
   
