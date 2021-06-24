@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
-import { Button, Form,FormGroup, Modal, Card, ListGroup } from 'react-bootstrap';
-import { Redirect } from 'react-router-dom';
+import { Button  } from 'react-bootstrap';
 import ShowQuestions from './QuestionDisplayComponent.js';
 import API from './API.js';
-import { useHistory , useParams, useLocation} from "react-router-dom";
+import { useHistory , useParams} from "react-router-dom";
 
 function ViewAnswers(props){
     let { id } = useParams();
@@ -27,7 +26,7 @@ function ViewAnswers(props){
             alert('no answers stored!')
         });
         
-    }, []);
+    }, [id]);
 
     useEffect(() => {
         const getAnswer = async () => {
@@ -39,7 +38,8 @@ function ViewAnswers(props){
 
         if(answerIdArray.length!==0){
         getAnswer().catch(err => {
-            alert('error while getting answer IDs!')
+            alert("error! impossible to retrieve answer!")
+            setAnswer(null);
         });
     }
 
@@ -62,7 +62,7 @@ function ViewAnswers(props){
 
 
     }
-if(answer)
+if(answer!==null)
     return <>
     <Button variant="transparent" className="fixed-left-middle shadow-none" onClick={() => handle("left")} ><svg   xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" className="bi bi-caret-right-fill" viewBox="0 0 16 16">
   <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>

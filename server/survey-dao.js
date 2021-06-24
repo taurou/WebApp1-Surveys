@@ -85,7 +85,6 @@ exports.getSurveyById = (surveyID) => {
     });
   };
 
-//TODO è una prova!
   exports.countAnswers = (admin) => {
     return new Promise((resolve, reject) => {
   

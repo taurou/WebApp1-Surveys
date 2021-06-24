@@ -1,9 +1,8 @@
-import logo from './logo.svg';
 import './App.css';
 import NavigationBar from './NavbarComponents.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import { Container, Button } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import CreateSurvey from './CreateSurveyComponent.js';
 
 import { MessageModal } from './MessageModal.js'
@@ -16,7 +15,7 @@ import API from './API.js';
 import UserView from './UserComponent.js';
 import AnswerToSurvey from './AnswerSurvey.js';
 import ViewAnswers from './AnswerView.js';
-
+//TODO SISTEMARE CSS e togliere l'attributo style ovunque
 function App() {
 
   const [loggedIn, setLoggedIn] = useState(false);

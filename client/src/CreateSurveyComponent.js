@@ -1,7 +1,5 @@
-import { Col, Card, ListGroup, Row, Container, Select, Navbar, Form, FormControl, Button, Modal } from 'react-bootstrap';
+import { Col, Card, ListGroup, Row, Container, Form, Button, Modal } from 'react-bootstrap';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import API from './API.js';
 import { MessageModalLite, RedirectModal } from './MessageModal.js'
 
 // import _default from 'react-bootstrap/esm/CardColumns';
@@ -17,7 +15,6 @@ function CreateSurvey(props) {
   
 
 
-  //TODO vedere perché non mi ritorna all'adminpanel
   function SubmitSurvey() {
     if (nameSurvey.trim()) {
       let survey = { nameSurvey: nameSurvey, questionArray: questionArray }
@@ -51,7 +48,7 @@ function CreateSurvey(props) {
   }
 
   function SwapQuestionTop(i) {
-    if (i != 0) {
+    if (i !== 0) {
       let copia = [...questionArray];
       let copia_i = copia[i];
       copia[i] = copia[i - 1];
@@ -62,7 +59,7 @@ function CreateSurvey(props) {
   }
 
   function SwapQuestionBottom(i) {
-    if (questionArray.length > 1 && i != (questionArray.length - 1)) {
+    if (questionArray.length > 1 && i !== (questionArray.length - 1)) {
       let copia = [...questionArray];
       let copia_i = copia[i];
       copia[i] = copia[i + 1];
@@ -209,7 +206,6 @@ function QuestionForm(props) {
     else
     answerToQuestion = "";
 
-    //TODO fare i check! 
     //consideriamo la risposta multipla
     if(!questionTitle.trim()){
       props.setErrorMessage("Insert the question title");

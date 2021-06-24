@@ -66,8 +66,6 @@ async function logIn(credentials) {
    return responseJSON;
 }
 
-
-//TODO fare attenzione all'admin loggato! 
 async function getCountAnswers() {
   const response = await fetch('/api/survey/countanswers/', {method : 'GET', 
   headers: {

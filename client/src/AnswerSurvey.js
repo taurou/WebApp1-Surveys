@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom'
 import { useState, useEffect } from 'react';
-import { Container, Button, Form, FormGroup, Modal, Card, ListGroup } from 'react-bootstrap';
+import { Container, Button, Form,  Modal} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import ShowQuestions from './QuestionDisplayComponent.js';
 import API from './API.js';
@@ -70,15 +70,18 @@ function AnswerToSurvey(props) {
 
   useEffect(() => {
     const getSurveyById = async () => {
-      const survey = await API.getSurveyById(id);
-      setSurvey(survey)
+      const surveyz = await API.getSurveyById(id);
+      if('error' in surveyz===true) //this in order to avoid problems when the link contains a nonexistent surveyId
+      setSurvey(null);
+      else
+      setSurvey(surveyz);
     };
 
     getSurveyById(id).catch(err => {
-      alert('error while getting survey!')
+      alert('error while getting survey!');
     });
 
-  }, []);
+  }, [id]);
 
   if (survey)
     return (
@@ -87,7 +90,6 @@ function AnswerToSurvey(props) {
         <RedirectModal isAnswering={true} show={successModalShow} ></RedirectModal>
         <ShowQuestions isAnswering={true} manageSubmit={manageSubmit} questions={survey} setQuestions={setSurvey} />
         <AskNameModal username={username} setUsername={setUsername} show={modalShow} closeModal={closeModal} />
-        {/* TODO fix style */}
         <Container><Button style={{ margin: "1rem 0px 0px" }} onClick={manageSubmit} className="float-right" variant="success">Submit survey</Button></Container>
 
       </>

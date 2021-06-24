@@ -46,8 +46,7 @@ function ShowQuestions(props) {
                                 
                                 val.multipleAnswers.map((answer, j) => {
 
-                                    return ( //TODO controllare se funziona anche senza return
-                                            //TODO fare attenzione a questi id... comportamenti molto strani
+                                    return ( 
                                             <Form.Check key={val.title+"_"+j} checked={props.questions.questionArray[i].answerToQuestion[j]} 
                                             disabled={props.isAnswering ? false : true }
                                             onChange={ (event) => handleChange(i, j, event.target.checked, props.questions.questionArray[i].max )  }
