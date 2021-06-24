@@ -126,7 +126,6 @@ app.get('/api/sessions/current', (req, res) => {
     res.status(401).json({ error: 'Unauthenticated user!' });;
 });
 
-//TODO Rimettere isLoggedIn
 
 // create a new survey
 app.post('/api/survey', isLoggedIn, async (req, res) => {
@@ -154,7 +153,6 @@ app.post('/api/answer', async (req, res) => {
 
 
 // retrieve survey by id
-//TODO Rimettere isLoggedIn
 app.get('/api/survey/id/:id', async (req, res) => {
 
   const id = req.params.id;
@@ -169,7 +167,6 @@ app.get('/api/survey/id/:id', async (req, res) => {
 
 
 // retrieve all surveys
-//TODO Rimettere isLoggedIn
 app.get('/api/survey/all', async (req, res) => {
 
   try {
@@ -181,8 +178,6 @@ app.get('/api/survey/all', async (req, res) => {
 });
 
 // retrieve all surveys by adminId
-//TODO Rimettere loggedIn
-//TODO verificare che id === admin.id
 app.get('/api/survey/all/byadmin', isLoggedIn,  async (req, res) => {
   
   try {
@@ -216,7 +211,6 @@ app.get('/api/survey/answerids/:id', isLoggedIn, async (req, res) => {
 });
 
 // retrieve answer by id
-//TODO Rimettere isLoggedIn e gestire user 
 app.get('/api/answer/id/:id', isLoggedIn, async (req, res) => {
 
   const id = req.params.id;
