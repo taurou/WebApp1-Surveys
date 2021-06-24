@@ -49,7 +49,7 @@ exports.getSurveyById = (surveyID) => {
           reject({error: 'Id not found.'});
         } else {
           
-          resolve(row.Questions);
+          resolve(JSON.parse(row.Questions));
         }
       });
     });
