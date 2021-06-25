@@ -55,7 +55,7 @@ function ShowQuestions(props) {
                                     )
                                 })
                                 : 
-                                <Form.Control value={props.questions.questionArray[i].answerToQuestion} disabled={props.isAnswering ? false : true } onChange={  (event) => handleChange(i, -1, event.target.value, -1 ) } maxLength="200" rows={3}  as="textarea" /*value={pippo} onChange={(event)=>setPippo(event.target.value)}*/ />
+                                <Form.Control value={props.questions.questionArray[i].answerToQuestion} disabled={props.isAnswering ? false : true } onChange={  (event) => handleChange(i, -1, event.target.value, -1 ) } maxLength="200" rows={3}  as="textarea" />
                                 
                             }
                             

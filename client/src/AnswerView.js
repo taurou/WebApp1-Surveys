@@ -10,6 +10,7 @@ function ViewAnswers(props){
     const [username, setUsername] = useState('');
     const [answer, setAnswer] = useState(null);
     const [answerIdArray,setAnswerIdArray] = useState([]);
+    const [survey, setSurvey] = useState(null);
 
     let history = useHistory();
 
@@ -46,6 +47,39 @@ function ViewAnswers(props){
     
     }, [answerIdArray, ansid]);
 
+
+    useEffect(() => {
+        const getSurveyById = async () => {
+          const surveyz = await API.getSurveyById(id);
+          if('error' in surveyz===true) //this in order to avoid problems when the link contains a nonexistent surveyId
+          setSurvey(null);
+          else
+          setSurvey(surveyz);
+        };
+    
+        getSurveyById(id).catch(err => {
+          alert('error while getting survey!');
+        });
+    
+      }, [id]);
+
+      
+      useEffect(() => {
+          const mergeSurveyAnswer = () => {
+            let tmp = {...survey};
+            for(let i = 0 ; i<tmp.questionArray.length ;i++){
+                tmp.questionArray[i].answerToQuestion = answer.questionArray[i].answerToQuestion;
+            }
+            setSurvey(tmp);
+          }
+          
+          if(survey!==null && answer!==null){
+            mergeSurveyAnswer();
+          }
+    
+      }, [answer]);
+
+    
     
     function handle(direction){
         if(direction==="right")
@@ -74,7 +108,7 @@ if(answer!==null)
 </svg>
 </Button>
 
-    <ShowQuestions username={username} isAnswering={false} questions={answer}  /> 
+    <ShowQuestions username={username} isAnswering={false} questions={survey}  /> 
     </>
     ;
     else return "" ;

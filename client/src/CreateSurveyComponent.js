@@ -10,21 +10,21 @@ function CreateSurvey(props) {
   const [nameSurvey, setNameSurvey] = useState("");
   const [questionArray, setQuestionArray] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
-  
-//TODO anche qui c'è un problema con le key! 
+
+  //TODO anche qui c'è un problema con le key! 
 
   function SubmitSurvey() {
     if (nameSurvey.trim()) {
       let survey = { nameSurvey: nameSurvey, questionArray: questionArray }
-      if(questionArray.length !== 0 )
-          addSurvey(survey);
-          else{
-            setErrorMessage("Please, insert at least one question");
-            setMessageModal(true);
-          }
+      if (questionArray.length !== 0)
+        addSurvey(survey);
+      else {
+        setErrorMessage("Please, insert at least one question");
+        setMessageModal(true);
+      }
 
 
-    } else{
+    } else {
       setErrorMessage("Please, insert a survey name");
       setMessageModal(true);
     }
@@ -92,7 +92,7 @@ function CreateSurvey(props) {
                   </svg> Question {i + 1}: {val.title}</Card.Header>
 
                 <ListGroup variant="flush">
-                  {val.isMultiple ? 
+                  {val.isMultiple ?
 
                     val.multipleAnswers.map((answer, j) => {
 
@@ -123,14 +123,14 @@ function CreateSurvey(props) {
         </Form>
         <Button style={{ margin: "0px 4px 4px" }} onClick={() => setModalShow(true)}>Add question</Button>
         <Button variant="success" style={{ margin: "0px 4px 4px" }} onClick={SubmitSurvey}>Submit survey</Button>
-        <MessageModalLite show={messageModal} handleClose={()=>setMessageModal(false)} message={errorMessage} />
-        <NewQuestionModal setErrorMessage={setErrorMessage} showMessageModal={()=> setMessageModal(true)} show={modalShow} closeModal={() => setModalShow(false)} questionArray={questionArray} setQuestionArray={setQuestionArray} onHide={() => setModalShow(false)} />
+        <MessageModalLite show={messageModal} handleClose={() => setMessageModal(false)} message={errorMessage} />
+        <NewQuestionModal setErrorMessage={setErrorMessage} showMessageModal={() => setMessageModal(true)} show={modalShow} closeModal={() => setModalShow(false)} questionArray={questionArray} setQuestionArray={setQuestionArray} onHide={() => setModalShow(false)} />
         <ShowQuestions />
         <RedirectModal isAnswering={false} show={successModalShow} />
 
 
       </Col>
-      
+
     </Row>
 
   );
@@ -192,34 +192,33 @@ function QuestionForm(props) {
     let closedOptions = multipleAnswers.filter(string => string.trim());
     let answerToQuestion = [];
     if (isMultiple)
-
       for (let i = 0; i < closedOptions.length; i++)
-      answerToQuestion.push(false);
+        answerToQuestion.push(false);
     else
-    answerToQuestion = "";
+        answerToQuestion = "";
 
     //consideriamo la risposta multipla
-    if(!questionTitle.trim()){
+    if (!questionTitle.trim()) {
       props.setErrorMessage("Insert the question title");
       props.showMessageModal();
       return;
     }
 
-    if(isMultiple && ( max>closedOptions.length || min>closedOptions.length || min>max || max === 0 )  ){
+    if (isMultiple && (max > closedOptions.length || min > closedOptions.length || min > max || max === 0)) {
       props.setErrorMessage("Insert valid values in closed-answer question");
       props.showMessageModal();
-      return; 
+      return;
     }
-  
 
-    let answer = { title: questionTitle, isMultiple: isMultiple, isOptional: isOptional, multipleAnswers: closedOptions, max: max, min: min, answerToQuestion : answerToQuestion };
+
+    let answer = { title: questionTitle, isMultiple: isMultiple, isOptional: isOptional, multipleAnswers: closedOptions, max: max, min: min, answerToQuestion: answerToQuestion };
 
     props.setQuestionArray([...props.questionArray, answer]);
 
     props.closeModal();
 
-    
-    
+
+
   }
 
   return (

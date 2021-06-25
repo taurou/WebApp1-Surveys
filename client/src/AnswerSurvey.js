@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import ShowQuestions from './QuestionDisplayComponent.js';
 import API from './API.js';
 import { MessageModalLite, RedirectModal } from './MessageModal.js'
-//...
 
 function AnswerToSurvey(props) {
   const { id } = useParams();
@@ -30,9 +29,20 @@ function AnswerToSurvey(props) {
 
 
   function manageSubmit() {
-    let obj = validateAnswers();
-    if (obj) {
-      addQuestion(survey);
+    if (validateAnswers()) {
+      let temp = JSON.parse(JSON.stringify(survey)); //per deep copy
+
+      for (let i = 0; i < temp.questionArray.length; i++){
+        delete temp.questionArray[i].max;
+        delete temp.questionArray[i].min;
+        delete temp.questionArray[i].title;
+        delete temp.questionArray[i].isMultiple;
+        delete temp.questionArray[i].isOptional;
+        delete temp.questionArray[i].multipleAnswers;
+      }
+      delete temp.nameSurvey;
+
+      addQuestion(temp);
     }
     else {
       setMessageModal(true);
