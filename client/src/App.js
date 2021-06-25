@@ -30,7 +30,7 @@ function App() {
     const checkAuth = async () => {
       try {
         const userinfo = await API.getUserInfo();
-        setUsername(userinfo.email);
+        setUsername(userinfo.username);
         setLoggedIn(true);
       } catch (err) {
 
@@ -43,15 +43,18 @@ function App() {
   const doLogOut = async () => {
     await API.logOut();
     setLoggedIn(false);
+    setUsername("");
+
   }
 
 
   const doLogIn = async (credentials) => {
+
     try {
       const user = await API.logIn(credentials);
       setLoggedIn(true);
-      setUsername(user);
-      setMessage({ msg: `Welcome, ${user}!`, type: 'success' });
+      setUsername(user.username);
+      setMessage({ msg: `Welcome, ${user.name}`, type: 'success' });
       handleShow();
     } catch (err) {
       setMessage({ msg: err + "!", type: 'danger' });

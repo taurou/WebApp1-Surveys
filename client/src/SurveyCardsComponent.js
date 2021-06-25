@@ -7,13 +7,13 @@ function SurveyCards(props) {
 
     {props.surveysArray.map((item, z) => {
       return (
-        <Card key={item.Questions.nameSurvey+"_"+z} style={{ marginwidth: '18rem' }}>
+        <Card key={z} style={{ marginwidth: '18rem' }}>
 
           <Card.Body>
                         <Card.Title>{item.Questions.nameSurvey}</Card.Title>
-                        { props.isAdmin ? props.countAnswers.map((obj,k ) => ( obj.SurveyId === item.SurveyId ? <><Button key={item.Questions.nameSurvey+"_1"+k} style={{margin: '3px'}}disabled>{obj.NumRisposte}</Button><Link key={item.Questions.nameSurvey+"_4"+k}  to={`viewanswers/${item.SurveyId}/0`} >
-            <Button key={item.Questions.nameSurvey+"_2"} variant="success">Check answers</Button></Link></>  :  ""  )) : <Link key={item.Questions.nameSurvey+"_7"}  to={`answersurvey/${item.SurveyId}`} >
-            <Button key={item.Questions.nameSurvey+"_3"} variant="success">Answer this survey</Button></Link> }
+                        { props.isAdmin ? props.countAnswers.map((obj,k ) => ( obj.SurveyId === item.SurveyId ? <span key={z+"-"+k}><Button style={{margin: '3px'}}disabled>{obj.NumRisposte}</Button><Link to={`viewanswers/${item.SurveyId}/0`} >
+            <Button variant="success">Check answers</Button></Link></span>  :  ""  )) : <Link to={`answersurvey/${item.SurveyId}`} >
+            <Button  variant="success">Answer this survey</Button></Link> }
             
             {props.isAdmin && !props.countAnswers.some(el => el.SurveyId === item.SurveyId) ? <><Button variant="info"  style={{margin: '3px'}} disabled>0</Button>
             <Button  disabled variant="secondary">No answers yet</Button></> : "" }

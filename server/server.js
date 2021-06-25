@@ -28,9 +28,7 @@ app.use(express.json());
 
 // initialize and configure passport
 passport.use(new passportLocal.Strategy(
-  {
-    usernameField: 'email'
-  },
+
   (username, password, done) => {
     // verification callback for authentication
     userDao.getUser(username, password).then(user => {
@@ -38,12 +36,12 @@ passport.use(new passportLocal.Strategy(
         done(null, user);
       }
       else
-        done(null, false, { message: 'Email or password wrong' });
+        done(null, false, { message: 'Wrong username/password' });
     }).catch(err => {
       done(err);
     });
   }));
-
+ 
 // serialize and de-serialize the user (user object <-> session)
 // we serialize the user id and we store it in the session: the session is very small in this way
 passport.serializeUser((user, done) => {
@@ -85,12 +83,11 @@ app.use(passport.session());
 
 // POST /sessions 
 // login
-app.post('/api/sessions', [ check('email').isEmail(), check('password').isLength({min :6})  ] , function (req, res, next) {
-
+app.post('/api/sessions' , [ check('password').isLength({min :6})  ], function (req, res, next) {
   const error = validationResult(req);
 
   if(!error.isEmpty()){
-    return res.status(422).json({message: "Email or password in the wrong format"});
+    return res.status(422).json({message: "Password in the wrong format"});
   }
 
   passport.authenticate('local', (err, user, info) => {
@@ -142,7 +139,7 @@ app.post('/api/survey', isLoggedIn, async (req, res) => {
 // save answer NO NEED TO CHECK LOGIN!
 app.post('/api/answer', async (req, res) => {
   try {
-    await surveyDao.createAnswer(req.body.username, req.body.id, req.body.survey);
+    await surveyDao.createAnswer(req.body.user, req.body.id, req.body.survey);
     res.end();
   } catch (error) {
     res.status(500).json(error);

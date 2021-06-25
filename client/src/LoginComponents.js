@@ -4,26 +4,21 @@ import { MessageModal } from './MessageModal.js'
 
 function LoginForm(props) {
 
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = (event) => {
     event.preventDefault();
     setErrorMessage('');
-    const credentials = { email, password };
+    const credentials = { username, password };
     let valid = true;
 
-    if (!email.trim()) {
+    if (!username.trim()) {
       valid = false
-      setErrorMessage({ msg: "Please insert email address!", type: 'danger' });
+      setErrorMessage({ msg: "Please insert username!", type: 'danger' });
     }
 
-    const mailformat = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if (!email.match(mailformat)) {
-      valid = false
-      setErrorMessage({ msg: "Please insert a valid email address!", type: 'danger' });
-    }
 
     if (!password.trim() || password.length < 6) {
       valid = false
@@ -44,9 +39,9 @@ function LoginForm(props) {
 
       <Form>
         {errorMessage ? <MessageModal setMessage={props.setMessage} handleClose={props.handleClose} message={errorMessage} show={props.show} /> : ''}
-        <Form.Group controlId='email'>
-          <Form.Label>Email</Form.Label>
-          <Form.Control type='email' value={email} onChange={ev => setEmail(ev.target.value)} />
+        <Form.Group controlId='username'>
+          <Form.Label>Username</Form.Label>
+          <Form.Control type='text' value={username} onChange={ev => setUsername(ev.target.value)} />
         </Form.Group>
         <Form.Group controlId='password'>
           <Form.Label>Password</Form.Label>

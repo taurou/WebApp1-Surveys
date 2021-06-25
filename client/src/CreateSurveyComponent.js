@@ -78,8 +78,9 @@ function CreateSurvey(props) {
         <div style={{ margin: '20px 0px 0px' }}>
           {
             questionArray.map((val, i) => {
-              return (<Card style={{ margin: '7px' }}>
-                <Card.Header>
+              return (
+              <Card key={i} style={{ margin: '7px' }}>
+                <Card.Header >
                   <svg style={{ margin: '0px 2px 2px' }} onClick={() => DeleteQuestion(i)} xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" className="bi bi-trash" viewBox="0 0 16 16">
                     <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
                     <path fillRule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
@@ -97,7 +98,7 @@ function CreateSurvey(props) {
                     val.multipleAnswers.map((answer, j) => {
 
                       return (
-                        <ListGroup.Item>{j + 1}. {answer}</ListGroup.Item>
+                        <ListGroup.Item key={i+"_"+j}>{j + 1}. {answer}</ListGroup.Item>
                       )
                     })
                     : ""
@@ -230,16 +231,16 @@ function QuestionForm(props) {
         <Form.Check type="checkbox" checked={isMultiple} id="multiple" custom onChange={(event) => { setIsMultiple(event.target.checked) }} label="Multiple Answer" /><br />
 
 
-        {isMultiple ? <p><Container><Row><Col><SelectElement title="Min" actuallySelected={min} handleSelect={handleSetMin} /></Col>
-          <Col><SelectElement title="Max" handleSelect={handleSetMax} actuallySelected={max} /></Col></Row></Container></p> : ""}
+        {isMultiple ? <Container><Row><Col><SelectElement title="Min" actuallySelected={min} handleSelect={handleSetMin} /></Col>
+          <Col><SelectElement title="Max" handleSelect={handleSetMax} actuallySelected={max} /></Col></Row></Container> : ""}
 
         {isMultiple ?
 
           multipleAnswers.map((val, i) =>
-            <p>
+            <div key={i} style={{margin:"1rem"}}>
               <Form.Label> Option number {i + 1}</Form.Label>
               <Form.Control type='text' value={val} onChange={(event) => { handleChange(i, event) }} />
-            </p>
+            </div>
           )
           :
           <div> <Form.Check type="checkbox" checked={isOptional} id="optional" custom onChange={(event) => { setIsOptional(event.target.checked) }} label="Optional" /><br /></div>
@@ -262,7 +263,7 @@ function QuestionForm(props) {
 function SelectElement(props) {
 
   return (
-    <Form>
+    <>
       <Form.Label>{props.title}</Form.Label>
       <Form.Control as="select" custom onChange={props.handleSelect} value={props.actuallySelected}
       >
@@ -278,7 +279,8 @@ function SelectElement(props) {
         <option value="9" >9</option>
         <option value="10" >10</option>
       </Form.Control>
-    </Form>);
+      </>
+    );
 }
 
 //TODO considerare i casi in cui il caricamento del db fa cilecca

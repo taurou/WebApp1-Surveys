@@ -139,7 +139,7 @@ function AskNameModal(props) {
 
       </Modal.Body>
       <Modal.Footer>
-        <p> {errorMessage} </p>
+        <div> {errorMessage} </div>
         <Link to="/"><Button variant="secondary">Go back</Button> </Link> <br />
         <Button onClick={() => validateAndSubmit()} variant="success"> Submit </Button><br />
       </Modal.Footer>
