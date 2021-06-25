@@ -17,6 +17,7 @@ function AnswerToSurvey(props) {
   const [survey, setSurvey] = useState(null);
 
   async function addQuestion(survey) {
+    console.log(username);
     await fetch('/api/answer', {
       method: 'POST',
       headers: {
@@ -41,7 +42,7 @@ function AnswerToSurvey(props) {
         delete temp.questionArray[i].multipleAnswers;
       }
       delete temp.nameSurvey;
-
+      console.log("this: "+props.username);
       addQuestion(temp);
     }
     else {
