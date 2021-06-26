@@ -101,7 +101,7 @@ function AnswerToSurvey(props) {
         <RedirectModal isAnswering={true} show={successModalShow} ></RedirectModal>
         <ShowQuestions isAnswering={true} manageSubmit={manageSubmit} questions={survey} setQuestions={setSurvey} />
         <AskNameModal username={username} setUsername={setUsername} show={modalShow} closeModal={closeModal} />
-        <Container><Button style={{ margin: "1rem 0px 0px" }} onClick={manageSubmit} className="float-right" variant="success">Submit survey</Button></Container>
+        <Container><Button onClick={manageSubmit} className="float-right answerSurveyButtonMargin" variant="success">Submit survey</Button></Container>
 
       </>
     );

@@ -63,3 +63,50 @@
   border-radius: 25px;
   align-items: center;
 }
+
+.answerSurveyButtonMargin {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.createSurDivMargin{
+  margin-top: 20px;
+}
+
+.createSurCardMargin{
+  margin: 7px;
+}
+
+.createSurUpDownDeleteMargin{
+  margin-left: 2px;
+  margin-right: 2px;
+}
+.createSurButtonMargin{
+  margin-left: 4px;
+  margin-right: 4px;
+}
+
+.createSurBetweenFormsMargin{
+  margin : 1rem;
+}
+
+.questionDispDivMargin{
+  margin-top: 4rem;
+}
+
+.questionDispCardMargin{
+  margin-top : 7px;
+}
+
+.questionDispMultipleMargin{
+  margin: 1rem;
+}
+
+.surveyCardColumnMargin{
+  margin: 5rem;
+}
+
+.surveyCardButtonMargin{
+  margin : 3px ;
+}
+

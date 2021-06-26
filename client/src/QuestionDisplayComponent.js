@@ -26,13 +26,13 @@ function ShowQuestions(props) {
 
     return (
 <Container>
-        <div style={{ margin: '4rem 0px 0px' }}>
+        <div className="questionDispDivMargin">
             <h3>Survey: {props.questions.nameSurvey}</h3>
             {props.isAnswering ? "" : <p className=" font-italic font-weight-light" >User: {props.username}</p> }
             {props.questions.questionArray.map((val, i) => {
 
                 return (
-                    <Card key={val.title} style={{ margin: '7px 0px 0px' }}>
+                    <Card key={val.title}  className="questionDispCardMargin">
                         <Card.Header>
                             Question {i + 1}: {val.title}
                             <Card.Subtitle className="text-right font-italic font-weight-light" >
@@ -50,7 +50,7 @@ function ShowQuestions(props) {
                                             <Form.Check key={val.title+"_"+j} checked={props.questions.questionArray[i].answerToQuestion[j]} 
                                             disabled={props.isAnswering ? false : true }
                                             onChange={ (event) => handleChange(i, j, event.target.checked, props.questions.questionArray[i].max )  }
-                                            style={{ margin:"1rem"} }id={(j+1)+(i+1)*100} name={i} type={props.questions.questionArray[i].max === 1 ? "radio" : "checkbox" }  label = {answer}>
+                                             className="questionDispMultipleMargin" id={(j+1)+(i+1)*100} name={i} type={props.questions.questionArray[i].max === 1 ? "radio" : "checkbox" }  label = {answer}>
                                                 </Form.Check>
                                     )
                                 })
