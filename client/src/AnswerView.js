@@ -11,6 +11,8 @@ function ViewAnswers(props){
     const [answer, setAnswer] = useState(null);
     const [answerIdArray,setAnswerIdArray] = useState([]);
     const [survey, setSurvey] = useState(null);
+    const [triggerUseEff, setTriggerUseEff] = useState(false);
+
 
     let history = useHistory();
 
@@ -35,6 +37,7 @@ function ViewAnswers(props){
             const answer = await API.getAnswerById(answerIdArray[parseInt(ansid)]);
             setUsername(answer.Username);
             setAnswer(answer.Questions);
+            setTriggerUseEff(true);
         };
 
         if(answerIdArray.length!==0){
@@ -66,19 +69,20 @@ function ViewAnswers(props){
       
       useEffect(() => {
           const mergeSurveyAnswer = () => {
-            if(survey!==null && answer!==null){
+            if(triggerUseEff){
             let tmp = {...survey};
             for(let i = 0 ; i<tmp.questionArray.length ;i++){
                 tmp.questionArray[i].answerToQuestion = answer.questionArray[i].answerToQuestion;
             }
             setSurvey(tmp);
+            setTriggerUseEff(false);
           }
         }
          
             mergeSurveyAnswer();
           
     
-      }, [answer]);
+      }, [answer, survey, triggerUseEff]);
 
     
     
