@@ -66,16 +66,17 @@ function ViewAnswers(props){
       
       useEffect(() => {
           const mergeSurveyAnswer = () => {
+            if(survey!==null && answer!==null){
             let tmp = {...survey};
             for(let i = 0 ; i<tmp.questionArray.length ;i++){
                 tmp.questionArray[i].answerToQuestion = answer.questionArray[i].answerToQuestion;
             }
             setSurvey(tmp);
           }
-          
-          if(survey!==null && answer!==null){
+        }
+         
             mergeSurveyAnswer();
-          }
+          
     
       }, [answer]);
 

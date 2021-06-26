@@ -13,6 +13,12 @@
   margin-right: 2px;
 }
 
+.success {
+  text-align: center;
+  font-size: 1.8rem ;
+  font-weight: bold;
+  color: #28A745;
+} 
 
 .danger {
   text-align: center;
