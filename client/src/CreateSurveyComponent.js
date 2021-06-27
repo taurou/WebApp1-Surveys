@@ -224,15 +224,16 @@ function QuestionForm(props) {
 
   return (
     <>
+            <Container>
+
       <Form>
         <Form.Label>Title of the question</Form.Label>
         <Form.Control type='text' value={questionTitle} onChange={(event) => { setQuestionTitle(event.target.value) }} /><br />
 
         <Form.Check type="checkbox" checked={isMultiple} id="multiple" custom onChange={(event) => { setIsMultiple(event.target.checked) }} label="Multiple Answer" /><br />
 
-
-        {isMultiple ? <Container><Row><Col><SelectElement title="Min" actuallySelected={min} handleSelect={handleSetMin} /></Col>
-          <Col><SelectElement title="Max" handleSelect={handleSetMax} actuallySelected={max} /></Col></Row></Container> : ""}
+        {isMultiple ? <Row><Col><SelectElement title="Min" actuallySelected={min} handleSelect={handleSetMin} /></Col>
+          <Col><SelectElement title="Max" handleSelect={handleSetMax} actuallySelected={max} /></Col></Row> : ""}
 
         {isMultiple ?
 
@@ -246,14 +247,15 @@ function QuestionForm(props) {
           <div> <Form.Check type="checkbox" checked={isOptional} id="optional" custom onChange={(event) => { setIsOptional(event.target.checked) }} label="Optional" /><br /></div>
 
         }
-
+    
+        </Form>
+        </Container>
         <Modal.Footer>
-          <Button onClick={props.closeModal} variant="secondary">Cancel</Button><br />
-          <Button onClick={handleForm}>Add question</Button><br />
-
+          <Button onClick={props.closeModal} variant="secondary">Cancel</Button>
+          <Button onClick={handleForm} variant="success">Add question</Button>
         </Modal.Footer>
 
-      </Form>
+
     </>
   );
 }

@@ -80,15 +80,12 @@ function App() {
             { loggedIn ? <ViewAnswers login={loggedIn}  /> :  <LoginForm login={doLogIn} setMessage={setMessage} handleClose={handleClose} handleShow={handleShow} show={show} /> }
           </Route>
 
-          <Route exact path="/login" render={() =>
-            <>{loggedIn ? <Redirect to="/adminpanel" /> : <LoginForm login={doLogIn} setMessage={setMessage} handleClose={handleClose} handleShow={handleShow} show={show} />
-            }</>
-          } />
+        
 
           <Route exact path="/adminpanel"
             render={() =>
               <>{
-                loggedIn ? <Surveys login={loggedIn} /> : <Redirect to="/login" />
+                loggedIn ? <Surveys login={loggedIn} /> : <LoginForm login={doLogIn} setMessage={setMessage} handleClose={handleClose} handleShow={handleShow} show={show} />
 
               }</>} />
 

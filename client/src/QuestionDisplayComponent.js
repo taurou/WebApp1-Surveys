@@ -1,4 +1,4 @@
-import {  Container, Form, Card, ListGroup } from 'react-bootstrap';
+import {  Button, Container, Form, Card, ListGroup } from 'react-bootstrap';
 
 //props.isAnswering serve 
 function ShowQuestions(props) {
@@ -64,6 +64,7 @@ function ShowQuestions(props) {
                     </Card>
             )})}
         </div>
+        {props.isAnswering ? <Button onClick={props.manageSubmit} className="float-right answerSurveyButtonMargin" variant="success">Submit survey</Button> : ""}
         </Container>
     );
 }

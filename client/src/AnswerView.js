@@ -40,7 +40,7 @@ function ViewAnswers(props){
             setTriggerUseEff(true);
         };
 
-        if(answerIdArray.length!==0){
+        if(answerIdArray.length!==0 && ansid<answerIdArray.length){
         getAnswer().catch(err => {
             alert("error! impossible to retrieve answer!")
             setAnswer(null);

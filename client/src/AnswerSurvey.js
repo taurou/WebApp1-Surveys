@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom'
 import { useState, useEffect } from 'react';
-import { Container, Button, Form,  Modal} from 'react-bootstrap';
+import { Button, Form,  Modal} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import ShowQuestions from './QuestionDisplayComponent.js';
 import API from './API.js';
@@ -101,7 +101,6 @@ function AnswerToSurvey(props) {
         <RedirectModal isAnswering={true} show={successModalShow} ></RedirectModal>
         <ShowQuestions isAnswering={true} manageSubmit={manageSubmit} questions={survey} setQuestions={setSurvey} />
         <AskNameModal username={username} setUsername={setUsername} show={modalShow} closeModal={closeModal} />
-        <Container><Button onClick={manageSubmit} className="float-right answerSurveyButtonMargin" variant="success">Submit survey</Button></Container>
 
       </>
     );
@@ -119,7 +118,7 @@ function AskNameModal(props) {
 
 
     if (!props.username.trim())
-      SetErrorMessage("Empty name, please enter a valid name");
+      SetErrorMessage("Enter a valid name");
     else
       props.closeModal();
 
@@ -141,8 +140,8 @@ function AskNameModal(props) {
       </Modal.Body>
       <Modal.Footer>
         <div> {errorMessage} </div>
-        <Link to="/"><Button variant="secondary">Go back</Button> </Link> <br />
-        <Button onClick={() => validateAndSubmit()} variant="success"> Submit </Button><br />
+        <Link to="/"><Button variant="secondary">Go back</Button> </Link> 
+        <Button onClick={() => validateAndSubmit()} variant="success"> Submit </Button>
       </Modal.Footer>
 
     </Modal>
