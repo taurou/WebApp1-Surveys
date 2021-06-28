@@ -14,7 +14,7 @@
 
 - Route _exact_ `/adminpanel/newsurvey` : page where the admin can create a new survey with an indefinite number of questions whom can be deleted or moved up/down.
 
-- Route exact `/viewanswers/:id/:ansid` : page where the user can read all the answers given to survey by a user.
+- Route exact `/viewanswers/:id/:ansid` : page where the admin can read all the answers given to survey by a user.
 
   `:id` identifies the survey (SurveyId on the DB) and `:ansid` is a sequential number that allows to move between the answers given by different users to the chosen survey. `:ansid` goes from 0 to `#answers-given-to-[:id]-survey - 1`
 
@@ -71,26 +71,10 @@ All of these Routes, (except `/` and `/answersurvey/:id`) when the admin is not 
 
 ## Main React Components
 
-**ViewAnswers in AnswerView merges answer with the survey** 
-
-
-
-**Surveys in SurveysManagement**
-
-**surveyCards in surveycardscomponent**
-
-**showquestions (called in answer to survey and view answer  c'è anche, simile, in create survey)**
-
-**CreateSurvey in createsurveycomponent**
-
-**QuestionForm in createsurveycomponent**
-
-Answersirvey
-
 - `ViewAnswers` (in `AnswerView.js`) : this component shows the answers given by a user to a survey and helps switching across users' answers by the arrows at the side of the screen. 
   This component is also responsible for "merging" the answers object with the original answer-less survey object, the result is a survey object with all the answers given by the user.
   This new survey+answers object is visualized through the `ShowQuestions` component.
-- `SurveyCards` (in `SurveyCardsComponent.js`) : this components, given the array that contains the surveys, for each survey returns the surveyName, the button that allows the user to answer the survey (by redirecting to the specific route).
+- `SurveyCards` (in `SurveyCardsComponent.js`) : this components, given the array that contains the surveys, for each survey returns the surveyName and the button that allows the user to answer the survey (by redirecting to the specific route).
   If it's called from `Surveys` in `SurveyManagement`, it also shows the number of answers for each survey and a button that allows to see the answers given by users (by redirecting to the specific route)
 - `Surveys` (in `SurveysManagement.js`) : this component is called to offer a dashboard of the surveys' status of the admin. It relies on `SurveyCards` to whom passess all the necessary parameters in order to show the number of answers per survey. 
 - `UserView` (`in UserComponent.js`) : this component calls `SurveyCards` in order to show all the available surveys and allow the user to answer.
