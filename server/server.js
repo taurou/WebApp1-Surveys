@@ -41,7 +41,7 @@ passport.use(new passportLocal.Strategy(
       done(err);
     });
   }));
- 
+
 // serialize and de-serialize the user (user object <-> session)
 // we serialize the user id and we store it in the session: the session is very small in this way
 passport.serializeUser((user, done) => {
@@ -83,11 +83,11 @@ app.use(passport.session());
 
 // POST /sessions 
 // login
-app.post('/api/sessions' , [ check('password').isLength({min :6})  ], function (req, res, next) {
+app.post('/api/sessions', [check('password').isLength({ min: 6 })], function (req, res, next) {
   const error = validationResult(req);
 
-  if(!error.isEmpty()){
-    return res.status(422).json({message: "Password in the wrong format"});
+  if (!error.isEmpty()) {
+    return res.status(422).json({ message: "Password in the wrong format" });
   }
 
   passport.authenticate('local', (err, user, info) => {
@@ -175,8 +175,8 @@ app.get('/api/survey/all', async (req, res) => {
 });
 
 // retrieve all surveys by adminId
-app.get('/api/survey/all/byadmin', isLoggedIn,  async (req, res) => {
-  
+app.get('/api/survey/all/byadmin', isLoggedIn, async (req, res) => {
+
   try {
     let survey = await surveyDao.listSurveysByAdminID(req.user.id);
     res.json(survey);
@@ -185,8 +185,8 @@ app.get('/api/survey/all/byadmin', isLoggedIn,  async (req, res) => {
   }
 });
 
-app.get('/api/survey/countanswers', isLoggedIn,  async (req, res) => {
-  
+app.get('/api/survey/countanswers', isLoggedIn, async (req, res) => {
+
   try {
     let survey = await surveyDao.countAnswers(req.user.id);
     res.json(survey);

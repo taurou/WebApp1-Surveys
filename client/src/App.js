@@ -70,18 +70,14 @@ function App() {
         {message && <MessageModal setMessage={setMessage} handleClose={handleClose} message={message} show={show} />}
         <Switch>
           <Route exact path="/">
-            <UserView login={loggedIn}/>
+            <UserView login={loggedIn} />
           </Route>
-
           <Route exact path="/answersurvey/:id">
             <AnswerToSurvey login={loggedIn} />
           </Route>
           <Route exact path="/viewanswers/:id/:ansid">
-            { loggedIn ? <ViewAnswers login={loggedIn}  /> :  <LoginForm login={doLogIn} setMessage={setMessage} handleClose={handleClose} handleShow={handleShow} show={show} /> }
+            {loggedIn ? <ViewAnswers login={loggedIn} /> : <LoginForm login={doLogIn} setMessage={setMessage} handleClose={handleClose} handleShow={handleShow} show={show} />}
           </Route>
-
-        
-
           <Route exact path="/adminpanel"
             render={() =>
               <>{
@@ -90,13 +86,13 @@ function App() {
               }</>} />
 
           <Route exact path="/adminpanel/newsurvey" render={() =>
-            <>{loggedIn ? <CreateSurvey login={loggedIn} /> :  <LoginForm login={doLogIn} setMessage={setMessage} handleClose={handleClose} handleShow={handleShow} show={show} /> }</>
+            <>{loggedIn ? <CreateSurvey login={loggedIn} /> : <LoginForm login={doLogIn} setMessage={setMessage} handleClose={handleClose} handleShow={handleShow} show={show} />}</>
 
-          }/>
-            <Route path="/" render={() =>
-            <Redirect to="/"/>
-            
-          }/>
+          } />
+          <Route path="/" render={() =>
+            <Redirect to="/" />   //in order to redirect any "/randomroutes" to "/""
+
+          } />
 
 
         </Switch>

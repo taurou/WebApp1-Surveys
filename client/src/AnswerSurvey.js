@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom'
 import { useState, useEffect } from 'react';
-import { Button, Form,  Modal} from 'react-bootstrap';
+import { Button, Form, Modal } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import ShowQuestions from './QuestionDisplayComponent.js';
 import API from './API.js';
@@ -17,7 +17,6 @@ function AnswerToSurvey(props) {
   const [survey, setSurvey] = useState(null);
 
   async function addQuestion(survey) {
-    console.log(username);
     await fetch('/api/answer', {
       method: 'POST',
       headers: {
@@ -33,7 +32,7 @@ function AnswerToSurvey(props) {
     if (validateAnswers()) {
       let temp = JSON.parse(JSON.stringify(survey)); //per deep copy
 
-      for (let i = 0; i < temp.questionArray.length; i++){
+      for (let i = 0; i < temp.questionArray.length; i++) {
         delete temp.questionArray[i].max;
         delete temp.questionArray[i].min;
         delete temp.questionArray[i].title;
@@ -42,7 +41,6 @@ function AnswerToSurvey(props) {
         delete temp.questionArray[i].multipleAnswers;
       }
       delete temp.nameSurvey;
-      console.log("this: "+props.username);
       addQuestion(temp);
     }
     else {
@@ -82,10 +80,10 @@ function AnswerToSurvey(props) {
   useEffect(() => {
     const getSurveyById = async () => {
       const surveyz = await API.getSurveyById(id);
-      if('error' in surveyz===true) //this in order to avoid problems when the link contains a nonexistent surveyId
-      setSurvey(null);
+      if ('error' in surveyz === true) //this in order to avoid problems when the link contains a nonexistent surveyId
+        setSurvey(null);
       else
-      setSurvey(surveyz);
+        setSurvey(surveyz);
     };
 
     getSurveyById(id).catch(err => {
@@ -97,7 +95,7 @@ function AnswerToSurvey(props) {
   if (survey)
     return (
       <>
-        <MessageModalLite handleClose={() => setMessageModal(false)} message="Please, fill the form correctly" show={messageModal} />
+        <MessageModalLite handleClose={() => setMessageModal(false)} message="Please, fill the survey correctly" show={messageModal} />
         <RedirectModal isAnswering={true} show={successModalShow} ></RedirectModal>
         <ShowQuestions isAnswering={true} manageSubmit={manageSubmit} questions={survey} setQuestions={setSurvey} />
         <AskNameModal username={username} setUsername={setUsername} show={modalShow} closeModal={closeModal} />
@@ -126,6 +124,7 @@ function AskNameModal(props) {
 
   return (
     <Modal
+      onHide={()=> ""} //do nothing
       show={props.show}
       size="md"
       aria-labelledby="contained-modal-title-vcenter"
@@ -140,7 +139,7 @@ function AskNameModal(props) {
       </Modal.Body>
       <Modal.Footer>
         <div> {errorMessage} </div>
-        <Link to="/"><Button variant="secondary">Go back</Button> </Link> 
+        <Link to="/"><Button variant="secondary">Go back</Button> </Link>
         <Button onClick={() => validateAndSubmit()} variant="success"> Submit </Button>
       </Modal.Footer>
 

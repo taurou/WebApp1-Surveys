@@ -35,23 +35,23 @@ function LoginForm(props) {
   return (
     <Row className="login">
 
-    <Col md={4} lg={4} className="center">
+      <Col md={4} lg={4} className="center">
 
-      <Form>
-        {errorMessage ? <MessageModal setMessage={props.setMessage} handleClose={props.handleClose} message={errorMessage} show={props.show} /> : ''}
-        <Form.Group controlId='username'>
-          <Form.Label>Username</Form.Label>
-          <Form.Control type='text' value={username} onChange={ev => setUsername(ev.target.value)} />
-        </Form.Group>
-        <Form.Group controlId='password'>
-          <Form.Label>Password</Form.Label>
-          <Form.Control type='password' value={password} onChange={ev => setPassword(ev.target.value)} />
-        </Form.Group>
-        <ButtonGroup className="d-flex">
-          <Button onClick={handleSubmit} variant='success'>Login</Button>
-        </ButtonGroup>
-      </Form>
-    </Col>
+        <Form>
+          {errorMessage ? <MessageModal setMessage={props.setMessage} handleClose={props.handleClose} message={errorMessage} show={props.show} /> : ''}
+          <Form.Group controlId='username'>
+            <Form.Label>Username</Form.Label>
+            <Form.Control type='text' value={username} onChange={ev => setUsername(ev.target.value)} />
+          </Form.Group>
+          <Form.Group controlId='password'>
+            <Form.Label>Password</Form.Label>
+            <Form.Control type='password' value={password} onChange={ev => setPassword(ev.target.value)} />
+          </Form.Group>
+          <ButtonGroup className="d-flex">
+            <Button onClick={handleSubmit} variant='success'>Login</Button>
+          </ButtonGroup>
+        </Form>
+      </Col>
     </Row>);
 }
 
