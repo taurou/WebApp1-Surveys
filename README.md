@@ -12,13 +12,15 @@
 
 - Route _exact_ `/adminpanel` : page for the administrators, here all the surveys published by a certain admin are shown with the number of received responses, there's also a button that allows to create a new survey. If #responses >0, the admin can choose a survey and check the answers given by each user.
 
-- Route _exact_ `adminpanel/newsurvey` : page where the admin can create a new survey with an indefinite number of questions whom can be deleted or moved up/down.
+- Route _exact_ `/adminpanel/newsurvey` : page where the admin can create a new survey with an indefinite number of questions whom can be deleted or moved up/down.
 
 - Route exact `/viewanswers/:id/:ansid` : page where the user can read all the answers given to survey by a user.
 
   `:id` identifies the survey (SurveyId on the DB) and `:ansid` is a sequential number that allows to move between the answers given by different users to the chosen survey. `:ansid` goes from 0 to `#answers-given-to-[:id]-survey - 1`
 
 - Route `/` : this route is at the bottom of the list, and just redirects any address different from the ones described above (e.g. `/ran-dom-rou-te`) to `/`
+
+All of these Routes, (except `/` and `/answersurvey/:id`) when the admin is not logged in, show a login interface.
 
 ## API Server
 
@@ -69,15 +71,45 @@
 
 ## Main React Components
 
-- `ListOfSomething` (in `List.js`): component purpose and main functionality
-- `GreatButton` (in `GreatButton.js`): component purpose and main functionality
-- ...
+**ViewAnswers in AnswerView merges answer with the survey** 
 
-(only _main_ components, minor ones may be skipped)
+
+
+**Surveys in SurveysManagement**
+
+**surveyCards in surveycardscomponent**
+
+**showquestions (called in answer to survey and view answer  c'è anche, simile, in create survey)**
+
+**CreateSurvey in createsurveycomponent**
+
+**QuestionForm in createsurveycomponent**
+
+Answersirvey
+
+- `ViewAnswers` (in `AnswerView.js`) : this component shows the answers given by a user to a survey and helps switching across users' answers by the arrows at the side of the screen. 
+  This component is also responsible for "merging" the answers object with the original answer-less survey object, the result is a survey object with all the answers given by the user.
+  This new survey+answers object is visualized through the `ShowQuestions` component.
+- `SurveyCards` (in `SurveyCardsComponent.js`) : this components, given the array that contains the surveys, for each survey returns the surveyName, the button that allows the user to answer the survey (by redirecting to the specific route).
+  If it's called from `Surveys` in `SurveyManagement`, it also shows the number of answers for each survey and a button that allows to see the answers given by users (by redirecting to the specific route)
+- `Surveys` (in `SurveysManagement.js`) : this component is called to offer a dashboard of the surveys' status of the admin. It relies on `SurveyCards` to whom passess all the necessary parameters in order to show the number of answers per survey. 
+- `UserView` (`in UserComponent.js`) : this component calls `SurveyCards` in order to show all the available surveys and allow the user to answer.
+- `ShowQuestions` (in `QuestionDisplayComponent.js`) : this component returns the list of questions contained in the survey object. When called from `AnswerToSurvey`, allows the user to fill the form in order to submit its answers. Otherwise, when called from `ViewAnswers` it shows the the survey with the answers but it doesn't allow any modification.
+- `CreateSurvey` (in `CreateSurveyComponent.js`) : this component helps the admin to create a new survey. It performs the validity checks necessary in order to submit a logically valid survey, it show the list of questions inserted and allows to delete or move them (up/down). For the insertion of questions, relies on `QuestionForm`
+- `QuestionForm` (in `CreateSurveyComponent.js`) : this componets is visualized inside a modal, allows to enter the title of the question and the various options (if the question is optional, the multiple-choice questions, the max number of choices...) and performs validity checks on the entered values
+- `AnswerToSurvey` (in `AnswerSurvey.js`) : this component allows the user to answer the survey, by showing the questions and performing validity checks on the constraints defined in the survey (such as: min or max number of multiple choice questions and mandatory/optional answers) before submitting the filled survey. All the answers are written on the Survey object retrieved from the DB, this component, before submitting, cleans the object from unnecessary information in order to save only the answers in the DB.
 
 ## Screenshot
 
-![Screenshot](./img/screenshot.jpg)
+![Screenshot](./img/user-home.png)
+
+![Screenshot](./img/answer-survey.png)
+
+![Screenshot](./img/admin-view.png)
+
+![Screenshot](./img/add-survey.png)
+
+![Screenshot](./img/answers-view.png)
 
 ## Users Credentials
 
